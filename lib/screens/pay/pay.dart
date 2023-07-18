@@ -1,4 +1,5 @@
 
+import 'package:cenimabooking/screens/details/homebytackat.dart';
 import 'package:cenimabooking/screens/pay/ticket.dart';
 
 import 'package:flutter/material.dart';
@@ -614,44 +615,53 @@ class _PayState extends State<Pay> {
                           ),
                         ),
                         Container(
-                          // PaymentformAEs (21:3032)
-                          margin: EdgeInsets.fromLTRB(16*fem, 0*fem, 16*fem, 0*fem),
+                          margin: EdgeInsets.fromLTRB(16 * fem, 0 * fem, 16 * fem, 0 * fem),
                           width: double.infinity,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                // inputsQB (I21:3032;21:2849)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 12*fem),
-                                padding: EdgeInsets.fromLTRB(16*fem, 16*fem, 16*fem, 4*fem),
-                                width: 340*fem,
-                                height: 56*fem,
-                                decoration: BoxDecoration (
+                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 12 * fem),
+                                padding: EdgeInsets.fromLTRB(16 * fem, 16 * fem, 16 * fem, 4 * fem),
+                                width: 340 * fem,
+                                height: 56 * fem,
+                                decoration: BoxDecoration(
                                   border: Border.all(color: Color(0x196d9eff)),
-                                  borderRadius: BorderRadius.circular(8*fem),
+                                  borderRadius: BorderRadius.circular(8 * fem),
                                 ),
                                 child: Container(
-                                  // wrapkym (I21:3032;21:2849;8:189)
-                                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 198*fem, 0*fem),
-                                  width: 110*fem,
+                                  margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 198 * fem, 0 * fem),
+                                  width: 110 * fem,
                                   height: double.infinity,
                                   child: TextField(
                                     decoration: InputDecoration(
                                       labelText: 'Phone number',
                                       labelStyle: TextStyle(
-                                        // fontFamily:
-                                        //fontSize: 16 * ffem,
-                                        //fontWeight: FontWeight.w500,
-                                        //height: 1.5 * ffem / fem,
-                                        //color: Color(0xff637393),
+                                        fontSize: 16 * ffem,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff637393),
                                       ),
                                     ),
                                   ),
-
                                 ),
                               ),
-                              TextButton(
-                                onPressed: () {
+                              SizedBox(height: 16 * fem),
+                              Container(
+                                width: double.infinity,
+                                height: 56 * fem,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8 * fem),
+                                  color: Color(0xffff8036),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x3fff8036),
+                                      offset: Offset(0 * fem, 4 * fem),
+                                      blurRadius: 8 * fem,
+                                    ),
+                                  ],
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
                                     // انتقل إلى صفحة الملف الشخصي (PROFILE)
                                     Navigator.push(
                                       context,
@@ -659,65 +669,38 @@ class _PayState extends State<Pay> {
                                         builder: (context) => Ticket(),
                                       ),
                                     );
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                ),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 56 * fem,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8 * fem),
-                                    color: Color(0xffff8036), // Set the container background color to orange
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0x3fff8036),
-                                        offset: Offset(0 * fem, 4 * fem),
-                                        blurRadius: 8 * fem,
-                                      ),
-                                    ],
+                                  },
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
                                   ),
                                   child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        _handleButtonPress(context);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.symmetric(vertical: 16 * fem),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8 * fem),
-                                        ),
-                                        primary: Colors.transparent, // Set the button background color to transparent
+                                    alignment: Alignment.center,
+                                    child: isLoading
+                                        ? Container(
+                                      // Loading screen
+                                      color: Colors.white,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
                                       ),
-                                      child: isLoading
-                                          ? Container(
-                                        // Loading screen
+                                    )
+                                        : Text(
+                                      'Continue',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 18 * ffem,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1.2575 * ffem / fem,
                                         color: Colors.white,
-                                        child: Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      )
-                                          : Text(
-                                        'Continue',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 18 * ffem,
-                                          fontWeight: FontWeight.w700,
-                                          height: 1.2575 * ffem / fem,
-                                          color: Colors.white,
-                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              )
-
+                              ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+
+                      ],),
                   ),
                 ),
 
@@ -738,7 +721,7 @@ class _PayState extends State<Pay> {
                       child: Container(
                         width: 200,
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Container(
                               margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 75 * fem, 0 * fem),
@@ -748,10 +731,14 @@ class _PayState extends State<Pay> {
                                 child: Container(
                                   width: 40 * fem,
                                   height: 40 * fem,
-                                  child: Image.asset(
-                                    'assets/images/glyph-muq.png',
-                                    width: 40 * fem,
-                                    height: 40 * fem,
+                                  child:IconButton(
+                                    icon: Icon(Icons.arrow_back,color:Colors.white),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => homebytackat()),
+                                      );
+                                    },
                                   ),
                                 ),
                               ),

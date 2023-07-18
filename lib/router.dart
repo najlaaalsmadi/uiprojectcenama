@@ -6,6 +6,7 @@ import 'package:cenimabooking/cinemapages/primeabdali.dart';
 import 'package:cenimabooking/cinemapages/taj_mall.dart';
 import 'package:cenimabooking/constants.dart';
 import 'package:cenimabooking/screens/details/details.dart';
+import 'package:cenimabooking/screens/details/homebytackat.dart';
 import 'package:cenimabooking/screens/home/bottom_navigation_bat.dart';
 import 'package:cenimabooking/screens/login/auth.dart';
 import 'package:cenimabooking/screens/login/login.dart';
@@ -23,11 +24,15 @@ GoRouter? router = GoRouter(initialLocation: splashScreenPath, routes: [
   ),
   GoRoute(
     path: splashScreenPath,
-    builder: (context, state) => const SplashScreen(),
+    builder: (context, state) =>  SplashScreen(),
   ),
   GoRoute(
     path: bottomNavPath,
     builder: (context, state) => const BottomNavigation(),
+  ),
+  GoRoute(
+    path: HomebytackatPath,
+    builder: (context, state) =>  homebytackat(),
   ),
   GoRoute(
     path: homeScreenPath,

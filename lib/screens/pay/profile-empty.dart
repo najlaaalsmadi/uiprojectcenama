@@ -1,5 +1,6 @@
 
 import 'package:cenimabooking/screens/pay/profile.dart';
+import 'package:cenimabooking/screens/pay/ticket.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -10,11 +11,11 @@ class Profile_Empty extends StatelessWidget {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.70;
     return Scaffold(
-      body: Container(
-        width: double.infinity,
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
         child: Container(
           // profileemptyF3M (21:2637)
-          padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 250*fem),
+          padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 170*fem),
           width: double.infinity,
           decoration: BoxDecoration (
             color: Color(0xff1a2232),
@@ -63,7 +64,15 @@ class Profile_Empty extends StatelessWidget {
                                       // glyph6EK (I21:2648;1:704)
                                       margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 11*fem),
                                       child: TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          // انتقل إلى صفحة الملف الشخصي (PROFILE)
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Ticket(),
+                                            ),
+                                          );
+                                        },
                                         style: TextButton.styleFrom (
                                           padding: EdgeInsets.zero,
                                         ),

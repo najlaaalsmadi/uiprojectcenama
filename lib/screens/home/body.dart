@@ -51,22 +51,13 @@ class _BodyState extends State<Body> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                InkWell(
-                  onTap: () {
-                    // انتقل إلى صفحة الملف الشخصي (PROFILE)
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Profile_Empty(),
-                      ),
-                    );
-                  },
-                  child: CircleAvatar(
-                    // logo for app
-                    backgroundColor: Colors.black38,
-                    radius: 30,
-                  ),
+                CircleAvatar(
+                  backgroundColor: Colors.black38,
+                  radius: 30,
+                  backgroundImage: AssetImage('assets/images/logo.png'), // تعيين صورة الشعار هنا
                 ),
+
+
 
                 Column(
                   children:[

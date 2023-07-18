@@ -37,7 +37,9 @@ class MoviePoster extends StatelessWidget {
                                   vote: trending[index]['vote_average']
                                       .toString(),
                                   launch_on: trending[index]
-                                  ['release_date'], key: key,
+                                  ['release_date'],
+                                   numOfTarings:trending[index]['vote_count'].toString(),
+                                  key: key,
                                 )));
                       },
                       child: Container(

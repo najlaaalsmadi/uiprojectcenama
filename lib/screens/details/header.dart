@@ -21,17 +21,13 @@ class Header extends StatelessWidget {
             children: [
               BackButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MoviesAbout(name: '', description: '', launch_on: '', vote: '', bannerurl: '', posterurl: '',),
-                    ),
-                  );
+                  context.go(homeScreenPath);
                 },
                 color: Colors.white,
               ),
               Column(
                 children: [
+
                   Text(
                     "اسم سينما",
                     style: TextStyle(

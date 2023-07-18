@@ -12,18 +12,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // final auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   var _showPassword = true;
 
   Future<void> signIn() async {
     try {
-      var user =   await FirebaseAuth.instance.signInWithEmailAndPassword(
+      var user = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      if(user != null) {
+      if (user != null) {
         context.go(homeScreenPath);
       }
     } catch (e) {
@@ -33,24 +32,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => Body(),
-              ),
+              MaterialPageRoute(builder: (context) => Body()),
             );
           },
         ),
@@ -60,113 +57,133 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 150,
+              height: 50,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
-              margin: const EdgeInsets.all(20),
-              width: 650,
-              height: 550,
-              decoration: BoxDecoration(
-                color: Colors.blue[900],
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    "Login",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 40,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    "Access to purchased ticket",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextField(
-                    onChanged: (value) {},
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                      hintStyle: TextStyle(color: Colors.white60),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+            Center(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
+                margin: const EdgeInsets.all(5),
+                width: 650,
+                height: 500,
+                decoration: BoxDecoration(
+                  color: Colors.blue[900],
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 40,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextField(
-                    onChanged: (value) {},
-                    controller: _passwordController,
-                    obscureText: _showPassword,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      //   icon: Icon(Icons.password),
-                      hintStyle: TextStyle(color: Colors.white60),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                    SizedBox(height: 8),
+                    Text(
+                      "Access to purchased tickets",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  GestureDetector(
-
-                    onTap: signIn,
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.orange[300],
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                    SizedBox(height: 30),
+                    TextFormField(
+                      onChanged: (value) {},
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        hintStyle: TextStyle(color: Colors.white60),
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.1),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
                       ),
-                      child: Center(
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      onChanged: (value) {},
+                      controller: _passwordController,
+                      obscureText: _showPassword,
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        hintStyle: TextStyle(color: Colors.white60),
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.1),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _showPassword = !_showPassword;
+                            });
+                          },
+                          icon: Icon(
+                            _showPassword ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 40),
+                    ElevatedButton(
+                      onPressed: signIn,
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange, // تعيين اللون البرتقالي
+                        onPrimary: Colors.white,
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
                         child: Text(
                           'Continue',
                           style: TextStyle(
                             fontSize: 18,
-
                           ),
-
                         ),
-                        // textColor: Colors.white,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      context.go(registerScreenPath);
-                    },
-                    height: 50,
-                    minWidth: 400,
-                    child: Text(
-                      'Create Account',
-                      style: TextStyle(
-                        fontSize: 18,
+                    SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () {
+                        context.go(registerScreenPath);
+                      },
+                      child: Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                    //  textColor: Colors.white,
-                    color: Colors.orange[300],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

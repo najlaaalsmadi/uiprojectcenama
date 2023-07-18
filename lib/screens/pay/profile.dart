@@ -1,4 +1,5 @@
 
+import 'package:cenimabooking/screens/pay/profile-empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
@@ -64,7 +65,13 @@ class Profile extends StatelessWidget {
                                       margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 11*fem),
                                       child: TextButton(
                                         onPressed: () {
-                                          //Navigator.push(context, MaterialPageRoute(builder: (context)=> yahia1()));
+                                          // انتقل إلى صفحة الملف الشخصي (PROFILE)
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Profile_Empty(),
+                                            ),
+                                          );
                                         },
                                         style: TextButton.styleFrom (
                                           padding: EdgeInsets.zero,
