@@ -1,0 +1,47 @@
+      //////////////////////////////////////////////////////**** Rating bar ****///////////////////////////////////////////////////////////////////////////////////////////////////////
+        Positioned(
+          left: -10,
+          top: 339,
+          child: Container(
+            color: const Color(0xb21e283d),
+            padding: const EdgeInsets.fromLTRB(78, 0, 60, 0),
+            width: 400,
+            height: 60,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //////////////////////////////////////////////////////**** Imbd rating ****///////////////////////////////////////////////////////////////////////////////////////////////////////
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    height: double.infinity,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.orange,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            widget.vote,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+
+              ],
+            ),
+          ),
+        ),
