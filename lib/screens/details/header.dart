@@ -4,7 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
+  @override
+  const Header({
+    Key? key,
+    required this.name,
+    required this.description,
+    required this.bannerurl,
+    required this.posterurl,
+    required this.vote,
+    required this.launch_on,
+    required this.numOfTarings,
+  })
+      : super(key: key);
+  final String name, description, bannerurl, posterurl, vote, launch_on,numOfTarings;
+
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     String currentTime = DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
@@ -38,12 +56,14 @@ class Header extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    "اسم الفيلم",
+                    widget.name,
                     style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey,
+                      fontSize: 20,
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+
                 ],
               ),
               IconButton(

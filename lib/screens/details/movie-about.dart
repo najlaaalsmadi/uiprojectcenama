@@ -28,7 +28,6 @@ class _MoviesAboutState extends State<MoviesAbout> {
   double fem=0;
 
 
-
       int pageIndex=0;
   Color mainColor=Color(0xff1a2232);
   Color seconderyColor=Color(0xb21e283d);
@@ -278,7 +277,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            margin:   EdgeInsets.fromLTRB(0 , 0 , 40*fem , 0 ),
+                            margin:   EdgeInsets.fromLTRB(0 , 0 , 33*fem , 0 ),
                             child: const Text(
                               'Release',
                               style:  TextStyle (
@@ -304,7 +303,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                       ),
                     ),
                     Container(
-                      margin:   EdgeInsets.fromLTRB(0 , 0 , 98*fem , 11*fem ),
+                      margin:   EdgeInsets.fromLTRB(0 , 0 , 91*fem , 11*fem ),
                       width: double.infinity,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

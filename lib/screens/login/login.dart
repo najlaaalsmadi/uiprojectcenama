@@ -45,10 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Body()),
-            );
+            context.go(bottomNavPath);
           },
         ),
       ),
