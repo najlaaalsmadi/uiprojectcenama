@@ -6,7 +6,25 @@ import 'package:provider/provider.dart';
 
 
 
-class homebytackat extends StatelessWidget {
+class homebytackat extends StatefulWidget {
+  @override
+  const homebytackat({
+    Key? key,
+    required this.name,
+    required this.description,
+    required this.bannerurl,
+    required this.posterurl,
+    required this.vote,
+    required this.launch_on,
+    required this.numOfTarings,
+  })
+      : super(key: key);
+  final String name, description, bannerurl, posterurl, vote, launch_on,numOfTarings;
+
+  State<homebytackat> createState() => _homebytackatState();
+}
+
+class _homebytackatState extends State<homebytackat> {
   @override
   Widget build(BuildContext context) {
 
@@ -24,7 +42,7 @@ class homebytackat extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Header(),
+                Header(name: widget.name, description: '', bannerurl: '', numOfTarings: '', posterurl: '', vote: '', launch_on: '',),
                 CircleAvatarButtonsRow(),
                 CinemaSeats(),
               ],

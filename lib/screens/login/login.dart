@@ -43,6 +43,12 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: seconderyColor,
         title: Text('Login'),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            context.go(bottomNavPath);
+          },
+        ),
       ),
       backgroundColor: mainColor,
       body: SingleChildScrollView(

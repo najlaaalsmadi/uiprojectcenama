@@ -844,9 +844,7 @@ class _PayState extends State<Pay> {
                                     onPressed: () {
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                homebytackat()),
+                                        MaterialPageRoute(builder: (context) => homebytackat(name: '', description: '', bannerurl: '', posterurl: '', vote: '', launch_on: '', numOfTarings: '',)),
                                       );
                                     },
                                   ),
