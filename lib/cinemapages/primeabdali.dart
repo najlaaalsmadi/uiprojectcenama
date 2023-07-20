@@ -1,4 +1,6 @@
+import 'package:cenimabooking/constants.dart';
 import 'package:flutter/material.dart';
+
 class PrimeAbdali extends StatefulWidget {
   const PrimeAbdali({Key? key}) : super(key: key);
 
@@ -9,6 +11,13 @@ class PrimeAbdali extends StatefulWidget {
 class _PrimeAbdaliState extends State<PrimeAbdali> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: mainColor,
+      appBar: AppBar(
+        backgroundColor: seconderyColor,
+        title: Text('Prime Cenima Abdali'),
+        centerTitle: true,
+      ),
+    );
   }
 }

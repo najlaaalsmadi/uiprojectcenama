@@ -2,7 +2,6 @@ import 'package:cenimabooking/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class SearchWidget extends StatefulWidget {
   const SearchWidget({Key? key}) : super(key: key);
 
@@ -11,94 +10,119 @@ class SearchWidget extends StatefulWidget {
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  List<String> CinemaName =['Prime Cinema Abdali','Prime Cinema Amman','Prime Cinema Irdid','Grand Cinema City Mall','Taj Mall Cinema','Mecca Mall Cinema'];
-  String _searchQuery="";
+  List<String> CinemaName = [
+    'Prime Cinema Abdali',
+    'Prime Cinema Amman',
+    'Prime Cinema Irdid',
+    'Grand Cinema City Mall',
+    'Taj Mall Cinema',
+    'Mecca Mall Cinema'
+  ];
+
+  TextEditingController _searchController = TextEditingController();
   List<String> _filteredPageNames = [];
 
   @override
   void initState() {
     super.initState();
-    _filteredPageNames.addAll(CinemaName);
+    _filteredPageNames = List.from(CinemaName);
   }
+
+  void _onSearchTextChanged() {
+    setState(() {
+      _filteredPageNames = CinemaName.where((cenimaName) => cenimaName
+          .toLowerCase()
+          .contains(_searchController.text.toLowerCase())).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(children: [
+    return Column(
+      children: [
         Container(
           margin: const EdgeInsets.all(20),
           child: TextField(
-            onChanged: _onSearchTextChanged,
+            controller: _searchController,
+            onChanged: (value) {
+              _onSearchTextChanged();
+            },
+            style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              prefixIcon: IconButton(onPressed:(){
-
-              },icon: const Icon(Icons.search,color: Colors.grey,)),
+              prefixIcon: IconButton(
+                onPressed: () {
+                  _onSearchTextChanged();
+                },
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                ),
+              ),
               //suffix: IconButton(onPressed: ()=>_searchController.clear(),
               // icon: const Icon(Icons.clear,color: Colors.grey,)),
-              suffixIcon: const Icon(Icons.interests_outlined,color: Colors.grey,),
+              suffixIcon: const Icon(
+                Icons.interests_outlined,
+                color: Colors.grey,
+              ),
               fillColor: Colors.black38,
               filled: true,
               hintText: "Search movie",
               hintStyle: const TextStyle(color: Colors.grey),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
-                borderSide:   BorderSide.none,
+                borderSide: BorderSide.none,
               ),
-            ),),
+            ),
+          ),
         ),
         Visibility(
-          visible: _searchQuery.isNotEmpty,
-          child: Expanded(
-            child: ListView.builder(
+          visible: _searchController.text.isNotEmpty,
+          child: Container(
+            child: ListView.separated(
+              shrinkWrap: true,
               itemCount: _filteredPageNames.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(_filteredPageNames[index]),
+                  title: Text(
+                    _filteredPageNames[index],
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
                   onTap: () {
                     _navigateToPage(_filteredPageNames[index]);
                   },
                 );
               },
+              separatorBuilder: (context, index) => Divider(color: labelsColor),
             ),
           ),
         ),
-      ],),
+      ],
     );
-  }
-  void _onSearchTextChanged(String value) {
-    setState(() {
-      _searchQuery = value;
-      _filteredPageNames = CinemaName
-          .where((pageName) =>
-          pageName.toLowerCase().contains(_searchQuery.toLowerCase()))
-          .toList();
-    });
   }
 
   void _navigateToPage(String pageName) {
     // Replace with the corresponding route names of the pages you want to navigate to
     switch (pageName) {
       case 'Prime Cinema Abdali':
-        context.go(AbdaliCinemaPath);
+        context.push(AbdaliCinemaPath);
         break;
       case 'Prime Cinema Amman':
-        context.go(AlbarakaCinemaPath);
+        context.push(AlbarakaCinemaPath);
         break;
       case 'Prime Cinema Irdid':
-        context.go(IrbidCinemaPath);
+        context.push(IrbidCinemaPath);
         break;
       case 'Grand Cinema City Mall':
-        context.go(GrandCinemaPath);
+        context.push(GrandCinemaPath);
         break;
       case 'Taj Mall Cinema':
-        context.go(TajCinemaPath);
+        context.push(TajCinemaPath);
         break;
       case 'Mecca Mall Cinema':
-        context.go(MeccaCinemaPath);
+        context.push(MeccaCinemaPath);
         break;
-
     }
   }
 }
-
-
-

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
+
 class PrimeAlbaraka extends StatefulWidget {
   const PrimeAlbaraka({Key? key}) : super(key: key);
 
@@ -9,6 +12,13 @@ class PrimeAlbaraka extends StatefulWidget {
 class _PrimeAlbarakaState extends State<PrimeAlbaraka> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: mainColor,
+      appBar: AppBar(
+        backgroundColor: seconderyColor,
+        title: Text('Prime Cenima Albaraka'),
+        centerTitle: true,
+      ),
+    );
   }
 }

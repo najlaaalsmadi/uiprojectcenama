@@ -28,8 +28,7 @@ final ThemeData baseThemeData = ThemeData(
       // Body styles are used for longer passages of text.
       bodyLarge: TextStyle(
           fontSize: 14.0, fontWeight: FontWeight.w900, color: Colors.grey),
-      bodyMedium: TextStyle(
-          fontSize: 15, fontWeight: FontWeight.w700, color: Colors.grey),
+      bodyMedium: TextStyle(fontSize: 15, color: Colors.white),
       bodySmall: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
 
       // Label styles are smaller, utilitarian styles, used for areas of the UI

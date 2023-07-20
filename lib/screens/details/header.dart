@@ -1,5 +1,4 @@
 import 'package:cenimabooking/constants.dart';
-import 'package:cenimabooking/screens/details/movie-about.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -7,10 +6,11 @@ import 'package:intl/intl.dart';
 class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String currentTime = DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
+    String currentTime =
+        DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
     String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
 
-    return  Container(
+    return Container(
       height: 120,
       color: Color(0xFF101238),
       child: Column(
@@ -21,13 +21,12 @@ class Header extends StatelessWidget {
             children: [
               BackButton(
                 onPressed: () {
-                  context.go(homeScreenPath);
+                  context.go(bottomNavPath);
                 },
                 color: Colors.white,
               ),
               Column(
                 children: [
-
                   Text(
                     "اسم سينما",
                     style: TextStyle(

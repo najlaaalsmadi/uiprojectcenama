@@ -1,5 +1,4 @@
 import 'package:cenimabooking/constants.dart';
-import 'package:cenimabooking/screens/home/body.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text.trim(),
       );
       if (user != null) {
-        context.go(homeScreenPath);
+        context.go(bottomNavPath);
       }
     } catch (e) {
       print(e);
@@ -41,18 +40,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Body()),
-            );
-          },
-        ),
+        backgroundColor: seconderyColor,
+        title: Text('Login'),
+        centerTitle: true,
       ),
-      backgroundColor: Colors.indigo[50],
+      backgroundColor: mainColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -62,11 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Center(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
-                margin: const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(20),
                 width: 650,
                 height: 500,
                 decoration: BoxDecoration(
-                  color: Colors.blue[900],
+                  color: labelsColor,
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: Column(
@@ -140,7 +132,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           icon: Icon(
-                            _showPassword ? Icons.visibility_off : Icons.visibility,
+                            _showPassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
                             color: Colors.white,
                           ),
                         ),
@@ -172,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 20),
                     TextButton(
                       onPressed: () {
-                        context.go(registerScreenPath);
+                        context.push(registerScreenPath);
                       },
                       child: Text(
                         'Create Account',
