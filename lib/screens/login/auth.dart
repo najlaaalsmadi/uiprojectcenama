@@ -1,8 +1,8 @@
-import 'package:cenimabooking/screens/home/home.dart';
 import 'package:cenimabooking/screens/login/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../pay/profile.dart';
 
 class Auth extends StatelessWidget {
   const Auth({Key? key});
@@ -14,8 +14,11 @@ class Auth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HomeScreen(); // تعديل هنا لعرض الصفحة المطلوبة بعد تسجيل الدخول
+            print('success in auth');
+
+            return Profile(); // تعديل هنا لعرض الصفحة المطلوبة بعد تسجيل الدخول
           } else {
+            print('failed in auth');
             return LoginScreen();
           }
         },

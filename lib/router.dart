@@ -17,7 +17,7 @@ import 'package:go_router/go_router.dart';
 
 import 'screens/home/home.dart';
 
-GoRouter? router = GoRouter(initialLocation: splashScreenPath, routes: [
+GoRouter? router = GoRouter(initialLocation: AlbarakaCinemaPath, routes: [
   GoRoute(
     path: AuthenticationPath,
     builder: (context, state) => const Auth(),
@@ -32,7 +32,15 @@ GoRouter? router = GoRouter(initialLocation: splashScreenPath, routes: [
   ),
   GoRoute(
     path: HomebytackatPath,
-    builder: (context, state) => homebytackat(),
+    builder: (context, state) => homebytackat(
+      name: '',
+      description: '',
+      bannerurl: '',
+      posterurl: '',
+      vote: '',
+      launch_on: '',
+      numOfTarings: '',
+    ),
   ),
   GoRoute(
     path: homeScreenPath,
