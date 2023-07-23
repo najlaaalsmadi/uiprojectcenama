@@ -1,8 +1,9 @@
 import 'package:cenimabooking/constants.dart';
 import 'package:cenimabooking/screens/home/home.dart';
-import 'package:cenimabooking/screens/login/login.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+
+import '../login/auth.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
@@ -13,9 +14,9 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int index = 0;
-  final screens = const [
+  final screens =  [
     HomeScreen(),
-    LoginScreen(),
+    Auth(),
   ];
   @override
   Widget build(BuildContext context) {

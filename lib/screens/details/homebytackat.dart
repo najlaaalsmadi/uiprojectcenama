@@ -66,7 +66,7 @@ class _homebytackatState extends State<homebytackat> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Header(name: widget.name, trending: trendingmovies,),
+                Header(name: widget.name, trending: trendingmovies, description: widget.description, bannerurl:widget.bannerurl , posterurl: widget.posterurl, vote: widget.vote, launch_on: widget.launch_on, numOfTarings: widget.numOfTarings,),
                 CircleAvatarButtonsRow(),
                 CinemaSeats(),
               ],

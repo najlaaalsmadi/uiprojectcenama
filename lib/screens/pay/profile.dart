@@ -9,8 +9,6 @@ import 'package:intl/intl.dart';
 class Profile extends StatelessWidget {
   //final int selectedTickets;
   final int totalPrice;
-  final List<String> seatNumbers;
-  final List<String> seatLocations;
   final String? cinemaName;
   final String? movieName;
   final String? movieTime;
@@ -20,11 +18,9 @@ class Profile extends StatelessWidget {
 
  // var selectedSeats;
 
- Profile({
+ Profile({super.key,
    // required this.selectedTickets,
     required this.totalPrice,
-    required this.seatNumbers,
-    required this.seatLocations,
     this.cinemaName,
     this.movieName,
     this.movieTime,
@@ -95,11 +91,9 @@ class Profile extends StatelessWidget {
                                             MaterialPageRoute(
                                               builder: (context) => Profile_Empty(
                                                 totalPrice: totalPrice,
-                                                seatNumbers: seatNumbers,
-                                                seatLocations: seatLocations,
                                                 cinemaName: "Cinema Name",
                                                 movieName: "Movie Name",
-                                                movieTime: "",),
+                                                movieTime: "", seatNumbers: [], seatLocations: [],),
                                             ),
                                           );
                                         },
