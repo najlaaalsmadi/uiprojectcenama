@@ -1,7 +1,6 @@
 import 'package:cenimabooking/constants.dart';
-import 'package:cenimabooking/screens/login/login.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -32,7 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   bool passwordConfirmation() {
-    return _passwordController.text.trim() == _confirmPasswordController.text.trim();
+    return _passwordController.text.trim() ==
+        _confirmPasswordController.text.trim();
   }
 
   @override
@@ -47,18 +47,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: seconderyColor,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            );
+            context.go(bottomNavPath);
           },
         ),
       ),
-      backgroundColor: Colors.indigo[50],
+      backgroundColor: mainColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -69,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               width: 650,
               height: 550,
               decoration: BoxDecoration(
-                color: Colors.blue[900],
+                color: labelsColor,
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Column(
@@ -82,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                   Text(
+                  Text(
                     'Create Account',
                     style: TextStyle(
                       fontSize: 18,
@@ -90,7 +87,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   SizedBox(height: 5),
-
                   TextField(
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
@@ -131,7 +127,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           });
                         },
                         icon: Icon(
-                          _showPassword ? Icons.visibility_off : Icons.visibility,
+                          _showPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                           color: Colors.white,
                         ),
                       ),
@@ -168,7 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Container(
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.orange[300],
+                        color: Colors.orange,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       child: Center(

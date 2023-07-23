@@ -4,25 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-class Header extends StatefulWidget {
-  @override
+class Header extends StatelessWidget {
+ // @override
   const Header({
     Key? key,
     required this.name,
-    required this.description,
-    required this.bannerurl,
-    required this.posterurl,
-    required this.vote,
-    required this.launch_on,
-    required this.numOfTarings,
+     required this.trending,
   })
       : super(key: key);
-  final String name, description, bannerurl, posterurl, vote, launch_on,numOfTarings;
+  final List trending;
+  final String name;
 
-  State<Header> createState() => _HeaderState();
-}
-
-class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     String currentTime = DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
@@ -39,7 +31,7 @@ class _HeaderState extends State<Header> {
             children: [
               BackButton(
                 onPressed: () {
-                  context.go(homeScreenPath);
+                 context.go(bottomNavPath);
                 },
                 color: Colors.white,
               ),
@@ -56,7 +48,7 @@ class _HeaderState extends State<Header> {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    widget.name,
+                    name,
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.orange,

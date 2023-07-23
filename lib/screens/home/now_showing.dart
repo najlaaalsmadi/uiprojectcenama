@@ -1,4 +1,4 @@
-import 'package:cenimabooking/screens/details/details.dart';
+import 'package:cenimabooking/screens/details/movie-about.dart';
 import 'package:flutter/material.dart';
 class NowShowingWidget extends StatelessWidget {
   final List trending;
@@ -37,23 +37,25 @@ class NowShowingWidget extends StatelessWidget {
                       shape: const StadiumBorder(),
                       color: Colors.lightBlue,
                       onPressed: (){
-                        /* Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                             builder: (context) => DetailsScreen(
-                                name: trending[index]['title'],
-                                bannerurl:
-                                'https://image.tmdb.org/t/p/w500' +
-                                    trending[index]['backdrop_path'],
-                                posterurl:
-                                'https://image.tmdb.org/t/p/w500' +
-                                    trending[index]['poster_path'],
-                                description: trending[index]['overview'],
-                                vote: trending[index]['vote_average']
-                                    .toString(),
-                                launch_on: trending[index]
-                                ['release_date'], key: key,
-                              )));*/
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                               builder: (context) => MoviesAbout(
+                                  name: trending[index]['title'],
+                                  bannerurl:
+                                  'https://image.tmdb.org/t/p/w500' +
+                                      trending[index]['backdrop_path'],
+                                  posterurl:
+                                  'https://image.tmdb.org/t/p/w500' +
+                                      trending[index]['poster_path'],
+                                  description: trending[index]['overview'],
+                                  vote: trending[index]['vote_average']
+                                      .toString(),
+                                  launch_on: trending[index]
+                                  ['release_date'],
+                                   numOfTarings:trending[index]['vote_count'].toString(),
+                                  key: key,
+                                )));
 
                       },child: const Text("Buy ticket",style: TextStyle(fontSize: 20,),),),
                   ),
@@ -64,3 +66,6 @@ class NowShowingWidget extends StatelessWidget {
     );
   }
 }
+
+
+

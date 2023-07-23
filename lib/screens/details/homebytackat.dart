@@ -1,8 +1,10 @@
+import 'package:cenimabooking/constants.dart';
 import 'package:cenimabooking/screens/details/CircleAvatarButton.dart';
 import 'package:cenimabooking/screens/details/header.dart';
 import 'package:cenimabooking/screens/details/cinemaseats.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tmdb_api/tmdb_api.dart';
 
 
 
@@ -25,6 +27,28 @@ class homebytackat extends StatefulWidget {
 }
 
 class _homebytackatState extends State<homebytackat> {
+  List trendingmovies = [];
+  loadMovies() async{
+    TMDB tmdbWithCustomLogs=TMDB(ApiKeys(apiKey, readaccessToken),
+        logConfig: const ConfigLogger(
+            showLogs: true,
+            showErrorLogs: true
+        ));
+    Map trendingresult= await tmdbWithCustomLogs.v3.trending.getTrending();
+    //print((trendingresult));
+    setState(() {
+      trendingmovies = trendingresult['results'];
+
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadMovies();
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -42,7 +66,7 @@ class _homebytackatState extends State<homebytackat> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Header(name: widget.name, description: '', bannerurl: '', numOfTarings: '', posterurl: '', vote: '', launch_on: '',),
+                Header(name: widget.name, trending: trendingmovies,),
                 CircleAvatarButtonsRow(),
                 CinemaSeats(),
               ],

@@ -1,16 +1,33 @@
-
-import 'package:cenimabooking/screens/details/homebytackat.dart';
+import 'package:cenimabooking/constants.dart';
 import 'package:cenimabooking/screens/pay/ticket.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 
+// ignore: must_be_immutable
 class Pay extends StatefulWidget {
-  const Pay({super.key});
+   Pay({required this.selectedTickets,
+      required this.totalPrice,
+      required this.seatNumbers,
+      required this.seatLocations,
+      this.cinemaName,
+      this.movieName,
+      this.movieTime,super.key});
+  final int selectedTickets;
+  final int totalPrice;
+  final List<String> seatNumbers;
+  final List<String> seatLocations;
+  final String? cinemaName;
+  final String? movieName;
+  final String? movieTime;
+  String currentTime =
+  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
+  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
+
 
   @override
   State<Pay> createState() => _PayState();
@@ -19,12 +36,22 @@ class Pay extends StatefulWidget {
 class _PayState extends State<Pay> {
   bool isLoading = false;
 
+
+
   void _handleButtonPress(BuildContext context) {
     setState(() {
       isLoading = true; // Show the loading screen
     });
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Ticket())).then((result) {
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Ticket(
+
+      totalPrice: widget.totalPrice,
+      seatNumbers: widget.seatNumbers,
+      seatLocations: widget.seatLocations,
+      cinemaName: "Cinema Name",
+      movieName: "Movie Name",
+      movieTime: "",))).then((result) {
       if (result != null && result is bool && result) {
         // Delayed navigation to yahia3() after a simulated loading delay
         Future.delayed(Duration(seconds: 2), () {
@@ -52,6 +79,7 @@ class _PayState extends State<Pay> {
         child: Container(
           width: double.infinity,
           child: Container(
+
             // Pay3k3 (12:2748)
             width: double.infinity,
             height: 840*fem,
@@ -62,8 +90,8 @@ class _PayState extends State<Pay> {
               children: [
                 Positioned(
                   // ticketZTV (12:3212)
-                  left: 0*fem,
-                  top: 108*fem,
+                  left: 20*fem,
+                  top: 170*fem,
                   child: Container(
                     padding: EdgeInsets.fromLTRB(0*fem, 16*fem, 0*fem, 16*fem),
                     width: 375*fem,
@@ -96,9 +124,8 @@ class _PayState extends State<Pay> {
                                       // thebatmanEi3 (12:3349)
                                       margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 16*fem),
                                       child: Text(
-                                        'The Batman',
+                                        '${widget.movieName}',
                                         style: TextStyle (
-
                                           fontSize: 18*ffem,
                                           fontWeight: FontWeight.w700,
                                           height: 1.3333333333*ffem/fem,
@@ -125,7 +152,6 @@ class _PayState extends State<Pay> {
                                                   child: Text(
                                                     'Cinema',
                                                     style: TextStyle (
-
                                                       fontSize: 14*ffem,
                                                       fontWeight: FontWeight.w400,
                                                       height: 1.2857142857*ffem/fem,
@@ -143,9 +169,8 @@ class _PayState extends State<Pay> {
                                                         // eurasiacinema7eQP (12:3225)
                                                         margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4*fem),
                                                         child: Text(
-                                                          'Eurasia Cinema7',
+                                                          '${widget.cinemaName}',
                                                           style: TextStyle (
-
                                                             fontSize: 14*ffem,
                                                             fontWeight: FontWeight.w500,
                                                             height: 1.2857142857*ffem/fem,
@@ -189,7 +214,7 @@ class _PayState extends State<Pay> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        // april20221440Puh (12:3229)
+                                                        // here put the date and the time for film from page cinema or film details
                                                         '6 April 2022, 14:40',
                                                         style: TextStyle (
 
@@ -205,7 +230,7 @@ class _PayState extends State<Pay> {
                                                 SizedBox(
                                                   height: 8*fem,
                                                 ),
-                                                Container(
+                                               /* Container(
                                                   // itemiwy (12:3230)
                                                   margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 199*fem, 0*fem),
                                                   width: double.infinity,
@@ -218,7 +243,6 @@ class _PayState extends State<Pay> {
                                                         child: Text(
                                                           'Hall',
                                                           style: TextStyle (
-
                                                             fontSize: 14*ffem,
                                                             fontWeight: FontWeight.w400,
                                                             height: 1.2857142857*ffem/fem,
@@ -239,7 +263,7 @@ class _PayState extends State<Pay> {
                                                       ),
                                                     ],
                                                   ),
-                                                ),
+                                                ),*/
                                                 SizedBox(
                                                   height: 8*fem,
                                                 ),
@@ -252,11 +276,10 @@ class _PayState extends State<Pay> {
                                                     children: [
                                                       Container(
                                                         // seatsSFh (12:3234)
-                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 58*fem, 0*fem),
+                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 48*fem, 0*fem),
                                                         child: Text(
                                                           'Seats',
                                                           style: TextStyle (
-
                                                             fontSize: 14*ffem,
                                                             fontWeight: FontWeight.w400,
                                                             height: 1.2857142857*ffem/fem,
@@ -266,9 +289,8 @@ class _PayState extends State<Pay> {
                                                       ),
                                                       Text(
                                                         // row78a71 (12:3236)
-                                                        '7 row (7, 8)',
+                                                        '${widget.seatLocations} \n ${widget.seatNumbers}',
                                                         style: TextStyle (
-
                                                           fontSize: 14*ffem,
                                                           fontWeight: FontWeight.w500,
                                                           height: 1.2857142857*ffem/fem,
@@ -316,9 +338,8 @@ class _PayState extends State<Pay> {
                                             // xadultLEb (12:3241)
                                             margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 32*fem, 0*fem),
                                             child: Text(
-                                              '1 x Adult',
+                                              'Tickets:',
                                               style: TextStyle (
-
                                                 fontSize: 16*ffem,
                                                 fontWeight: FontWeight.w500,
                                                 height: 1.125*ffem/fem,
@@ -328,47 +349,8 @@ class _PayState extends State<Pay> {
                                           ),
                                           Text(
                                             // f1y (12:3242)
-                                            '2200 JD',
+                                            '${widget.selectedTickets} ${widget.selectedTickets > 1 ? 'tickets' : 'ticket'}',
                                             style: TextStyle (
-
-                                              fontSize: 16*ffem,
-                                              fontWeight: FontWeight.w500,
-                                              height: 1.125*ffem/fem,
-                                              color: Color(0xffffffff),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8*fem,
-                                    ),
-                                    Container(
-                                      // rowADd (12:3243)
-                                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 207*fem, 0*fem),
-                                      width: double.infinity,
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            // xchildsNw (12:3244)
-                                            margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 33*fem, 0*fem),
-                                            child: Text(
-                                              '1 x Child',
-                                              style: TextStyle (
-
-                                                fontSize: 16*ffem,
-                                                fontWeight: FontWeight.w500,
-                                                height: 1.125*ffem/fem,
-                                                color: Color(0xff637393),
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            // Q7y (12:3245)
-                                            '1000 JD',
-                                            style: TextStyle (
-
                                               fontSize: 16*ffem,
                                               fontWeight: FontWeight.w500,
                                               height: 1.125*ffem/fem,
@@ -392,9 +374,8 @@ class _PayState extends State<Pay> {
                                             // totalGfy (12:3247)
                                             margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 45*fem, 0*fem),
                                             child: Text(
-                                              '2 total',
+                                              'total',
                                               style: TextStyle (
-
                                                 fontSize: 16*ffem,
                                                 fontWeight: FontWeight.w700,
                                                 height: 1.125*ffem/fem,
@@ -404,9 +385,8 @@ class _PayState extends State<Pay> {
                                           ),
                                           Text(
                                             // by9 (12:3248)
-                                            '3200 JD',
+                                          '${widget.totalPrice}  JD',
                                             style: TextStyle (
-
                                               fontSize: 16*ffem,
                                               fontWeight: FontWeight.w700,
                                               height: 1.125*ffem/fem,
@@ -507,7 +487,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -517,7 +497,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -527,7 +507,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -537,7 +517,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color:const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -547,7 +527,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -557,7 +537,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -567,7 +547,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -577,7 +557,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -587,7 +567,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -597,7 +577,7 @@ class _PayState extends State<Pay> {
                                 height: 12*fem,
                                 decoration: BoxDecoration (
                                   borderRadius: BorderRadius.circular(6*fem),
-                                  color: Color(0xff1a2232),
+                                  color: const Color(0xff1a2232),
                                 ),
                               ),
                               Container(
@@ -626,7 +606,7 @@ class _PayState extends State<Pay> {
                                 width: 340 * fem,
                                 height: 56 * fem,
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0x196d9eff)),
+                                  border: Border.all(color:const Color(0x196d9eff)),
                                   borderRadius: BorderRadius.circular(8 * fem),
                                 ),
                                 child: Container(
@@ -639,7 +619,7 @@ class _PayState extends State<Pay> {
                                       labelStyle: TextStyle(
                                         fontSize: 16 * ffem,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xff637393),
+                                        color: const Color(0xff637393),
                                       ),
                                     ),
                                   ),
@@ -666,7 +646,13 @@ class _PayState extends State<Pay> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Ticket(),
+                                        builder: (context) => Ticket(
+                                          totalPrice: widget.totalPrice,
+                                          seatNumbers: widget.seatNumbers,
+                                          seatLocations: widget.seatLocations,
+                                          cinemaName: "Cinema Name",
+                                          movieName: "Movie Name",
+                                          movieTime: "dateMovie",),
                                       ),
                                     );
                                   },
@@ -734,10 +720,12 @@ class _PayState extends State<Pay> {
                                   child:IconButton(
                                     icon: Icon(Icons.arrow_back,color:Colors.white),
                                     onPressed: () {
-                                      Navigator.push(
+                                      /*Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context) => homebytackat(name: '', description: '', bannerurl: '', posterurl: '', vote: '', launch_on: '', numOfTarings: '',)),
-                                      );
+                                      );*/
+                                      //Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentForm()));
+                                      context.go(paymentFormPath);
                                     },
                                   ),
                                 ),

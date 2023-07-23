@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +20,7 @@ class CircleAvatarButton extends StatelessWidget {
   final Color backgroundColor;
   final String symbol;
 
-  const CircleAvatarButton({
+  const CircleAvatarButton({super.key,
     required this.value,
     required this.label,
     required this.backgroundColor,
@@ -47,7 +46,7 @@ class CircleAvatarButton extends StatelessWidget {
             child: Center(
               child: Text(
                 symbol,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -55,10 +54,10 @@ class CircleAvatarButton extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 4),
+          const SizedBox(width: 4),
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -71,11 +70,13 @@ class CircleAvatarButton extends StatelessWidget {
 }
 
 class CircleAvatarButtonsRow extends StatelessWidget {
+  const CircleAvatarButtonsRow({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF101238),
-      child: Row(
+      color: const Color(0xFF101238),
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(

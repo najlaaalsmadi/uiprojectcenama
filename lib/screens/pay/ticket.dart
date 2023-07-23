@@ -1,11 +1,29 @@
-
 import 'dart:ui';
-import 'package:cenimabooking/screens/pay/pay.dart';
 import 'package:cenimabooking/screens/pay/profile-empty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class Ticket extends StatelessWidget {
+  final int totalPrice;
+  final List<String> seatNumbers;
+  final List<String> seatLocations;
+  final String? cinemaName;
+  final String? movieName;
+  final String? movieTime;
+  String currentTime =
+  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
+  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
+
+  Ticket({super.key,
+    required this.totalPrice,
+    required this.seatNumbers,
+    required this.seatLocations,
+    this.cinemaName,
+    this.movieName,
+    this.movieTime,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -616,12 +634,7 @@ class Ticket extends StatelessWidget {
                                             child: ElevatedButton(
                                               onPressed: () {
                                                 // انتقل إلى صفحة الملف الشخصي (PROFILE)
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => Pay(),
-                                                  ),
-                                                );
+                                            Navigator.pop(context);
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 primary: Colors.transparent,
@@ -670,7 +683,13 @@ class Ticket extends StatelessWidget {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => Profile_Empty(),
+                                                    builder: (context) => Profile_Empty(
+                                                      totalPrice: totalPrice,
+                                                      seatNumbers: seatNumbers,
+                                                      seatLocations: seatLocations,
+                                                      cinemaName: "Cinema Name",
+                                                      movieName: "Movie Name",
+                                                      movieTime: "",),
                                                   ),
                                                 );
                                               },

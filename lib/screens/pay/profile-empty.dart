@@ -4,7 +4,33 @@ import 'package:cenimabooking/screens/pay/ticket.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import 'package:intl/intl.dart';
+
+// ignore: must_be_immutable
 class Profile_Empty extends StatelessWidget {
+ // final int selectedTickets;
+  final int totalPrice;
+  final List<String> seatNumbers;
+  final List<String> seatLocations;
+  final String? cinemaName;
+  final String? movieName;
+  final String? movieTime;
+  String currentTime =
+  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
+  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
+
+  //var selectedSeats;
+
+  Profile_Empty({
+   // required this.selectedTickets,
+    required this.totalPrice,
+    required this.seatNumbers,
+    required this.seatLocations,
+    this.cinemaName,
+    this.movieName,
+    this.movieTime,
+  });
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -69,7 +95,13 @@ class Profile_Empty extends StatelessWidget {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => Ticket(),
+                                              builder: (context) => Ticket(
+                                                totalPrice: totalPrice,
+                                                seatNumbers:seatNumbers,
+                                                seatLocations: seatLocations,
+                                                cinemaName: "Cinema Name",
+                                                movieName: "Movie Name",
+                                                movieTime: "",),
                                             ),
                                           );
                                         },
@@ -174,7 +206,13 @@ class Profile_Empty extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Profile(),
+                                    builder: (context) => Profile(
+                                      totalPrice: totalPrice,
+                                      seatNumbers: seatNumbers,
+                                      seatLocations: seatLocations,
+                                      cinemaName: "Cinema Name",
+                                      movieName: "Movie Name",
+                                      movieTime: "",),
                                   ),
                                 );
                             },

@@ -1,4 +1,4 @@
-import 'package:cenimabooking/screens/details/details.dart';
+//import 'package:cenimabooking/screens/details/details.dart';
 import 'package:cenimabooking/screens/details/movie-about.dart';
 import 'package:flutter/material.dart';
 class MoviePoster extends StatelessWidget {

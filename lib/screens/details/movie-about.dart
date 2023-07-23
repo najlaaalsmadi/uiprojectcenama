@@ -35,6 +35,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
 
   @override
   void initState(){
+    super.initState();
     setState(() {
     });
   }
@@ -55,6 +56,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
           ),
           body: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ////////////////////////////////////////////////////**** top navigation bar ****///////////////////////////////////////////////////////////////////////////////////////////////////////
                 Container(
@@ -112,7 +114,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
             children: [
               //////////////////////////////////////////////////////**** Rating ****///////////////////////////////////////////////////////////////////////////////////////////////////////
               Container(
-                margin: const EdgeInsets.fromLTRB(0 , 5 , 78 , 0 ),
+                margin: const EdgeInsets.fromLTRB(0 , 5 , 0 , 12 ),
                 height: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,7 +185,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
             children: [
               Text(widget.description,style:  TextStyle (
 
-                  fontSize: 11,
+                  fontSize: 13,
                   fontWeight: FontWeight.w400,
                   color: const Color(0xffffffff),
                 ),
@@ -340,39 +342,6 @@ class _MoviesAboutState extends State<MoviesAbout> {
             ],
           ),
         ),
-        //////////////////////////////////////////////////////**** select button ****///////////////////////////////////////////////////////////////////////////////////////////////////////
-        Container(
-          padding:  EdgeInsets.fromLTRB(16*fem , 0 , 30*fem , 16*fem ),
-          width: 375*fem ,
-          height: 70*fem ,
-          color: const Color(0xb21e283d),
-
-          child: Container(
-            decoration: BoxDecoration (
-              color: Colors.orange.shade600,
-
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-            ),
-            child: MaterialButton(
-              onPressed: () {
-                context.go(HomebytackatPath);
-              },
-
-              child:Text(
-                'Select session',
-                textAlign: TextAlign.center,
-                style:  TextStyle (
-
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-
-                  color: const Color(0xffffffff),
-                ),
-              ),
-
-            ),
-          ),
-        ),
       ],
 
     );
@@ -382,7 +351,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
     return Container(
       height: double.infinity,
       color: mainColor,
-      child: Column(children: [
+      child: Stack(children: [
         ////////////////////////////////////////////////////**** Filter bar ****///////////////////////////////////////////////////////////////////////////////////////////////////////
         Positioned(
           left: 0*fem,
@@ -504,9 +473,9 @@ class _MoviesAboutState extends State<MoviesAbout> {
         ),
         //////////////////////////////////////////////////////**** labels bar ****///////////////////////////////////////////////////////////////////////////////////////////////////////
         Positioned(
-          top: 225,
+          top: 90,
           child: Container(
-            width: 400,
+            width: 440,
             height: 30*fem,
             color: Color(0xff253454),
             child: Row(
@@ -569,7 +538,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
         ),
         //////////////////////////////////////////////////////**** List View ****///////////////////////////////////////////////////////////////////////////////////////////////////////
         Positioned(
-          top: 260*fem,
+          top: 110*fem,
           child: Container(
             color: mainColor,
             child: Row(
@@ -615,7 +584,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                         children: [
                           Align(
                             child: Text(
-                              'Eurasia Cinema7',
+                              'Prime Cinema Abdali',
                               style:     TextStyle (
 
                                 fontSize: 14 ,
@@ -716,7 +685,41 @@ class _MoviesAboutState extends State<MoviesAbout> {
             ),
           ),
         ),
+        Positioned(
+          top: 620,
+          child: Container(
+            padding:  EdgeInsets.fromLTRB(16*fem , 0 , 30*fem , 16*fem ),
+            width: 375*fem ,
+            height: 70*fem ,
+            color: const Color(0xb21e283d),
 
+            child: Container(
+              decoration: BoxDecoration (
+                color: Colors.orange.shade600,
+
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: MaterialButton(
+                onPressed: () {
+                  context.go(HomebytackatPath);
+                },
+
+                child:Text(
+                  'Select session',
+                  textAlign: TextAlign.center,
+                  style:  TextStyle (
+
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+
+                    color: const Color(0xffffffff),
+                  ),
+                ),
+
+              ),
+            ),
+          ),
+        ),
       ],),
     );
   }

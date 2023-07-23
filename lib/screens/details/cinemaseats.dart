@@ -1,5 +1,6 @@
+import 'package:cenimabooking/screens/pay/pay.dart';
 import 'package:flutter/material.dart';
-import 'package:cenimabooking/screens/details/buytickets.dart';
+
 
 class CustomSeatButton extends StatelessWidget {
   final bool isSelected;
@@ -155,7 +156,7 @@ class _CinemaSeatsState extends State<CinemaSeats> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BuyTickets(
+                      builder: (context) => Pay(
                         selectedTickets: selectedSeats.fold(
                           0,
                               (total, row) => total + row.where((seat) => seat).length,
