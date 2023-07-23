@@ -208,8 +208,6 @@ class Profile_Empty extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder: (context) => Profile(
                                       totalPrice: totalPrice,
-                                      seatNumbers: seatNumbers,
-                                      seatLocations: seatLocations,
                                       cinemaName: "Cinema Name",
                                       movieName: "Movie Name",
                                       movieTime: "",),

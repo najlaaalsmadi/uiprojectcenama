@@ -38,13 +38,10 @@ class _GrandCinemaState extends State<GrandCinema> {
     DateTime currentDate = DateTime.now();
 
     for (int i = 0; i < 3; i++) {
-      // Add 1 day to the current date for each iteration
       DateTime nextDay = currentDate.add(Duration(days: i));
 
-      // Format the time as you desire (e.g., 'HH:mm')
       String formattedTime = '${nextDay.day.toString().padLeft(2, '0')}/${nextDay.month.toString().padLeft(2, '0')}/${nextDay.year.toString()}';
 
-      // Add the formatted time to the list
       times.add(formattedTime);
     }
 
@@ -73,7 +70,7 @@ class _GrandCinemaState extends State<GrandCinema> {
                   child: Text("Welcome \n Grand Cinema City Mall"),),
                 const SizedBox(height: 10),
                 Container(
-                    height: 300,
+                    height: MediaQuery.of(context).size.height,
                     width: double.infinity,
                     child: ListView.builder(
                       //scrollDirection: Axis.horizontal,
@@ -100,7 +97,27 @@ class _GrandCinemaState extends State<GrandCinema> {
                                       )));
                             },
                             child: Container(
-                              margin: const EdgeInsets.all(7),
+                              margin: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 1,
+                                    color: labelsColor // Set the color of the border
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: labelsColor.withOpacity(
+                                        0.2), // Set the color of the shadow
+                                    blurRadius:
+                                    4, // Set the blur radius of the shadow
+                                    spreadRadius:
+                                    2, // Set the spread radius of the shadow
+                                    offset:
+                                    Offset(0, 5), // Set the offset of the shadow
+                                  ),
+                                ],
+                              ),
                               width: 170,
                               child: Column(
                                 children: [
@@ -137,11 +154,11 @@ class _GrandCinemaState extends State<GrandCinema> {
                                       ),
                                       const Row(children: [
                                         SizedBox(width: 90,),
-                                        Text("14:00"),
-                                        SizedBox(width: 10,),
-                                        Text("16:00"),
+                                        Text("15:00"),
                                         SizedBox(width: 10,),
                                         Text("18:00"),
+                                        SizedBox(width: 10,),
+                                        Text("20:00"),
                                       ],),
                                       Text(
                                         ' ${times[1]}',
@@ -149,11 +166,11 @@ class _GrandCinemaState extends State<GrandCinema> {
                                       ),
                                       const Row(children: [
                                         SizedBox(width: 90,),
-                                        Text("14:00"),
-                                        SizedBox(width: 10,),
-                                        Text("16:00"),
+                                        Text("15:00"),
                                         SizedBox(width: 10,),
                                         Text("18:00"),
+                                        SizedBox(width: 10,),
+                                        Text("20:00"),
                                       ],),
                                       Text(
                                         ' ${times[2]}',
@@ -161,11 +178,11 @@ class _GrandCinemaState extends State<GrandCinema> {
                                       ),
                                       const Row(children: [
                                         SizedBox(width: 90,),
-                                        Text("14:00"),
-                                        SizedBox(width: 10,),
-                                        Text("16:00"),
+                                        Text("15:00"),
                                         SizedBox(width: 10,),
                                         Text("18:00"),
+                                        SizedBox(width: 10,),
+                                        Text("20:00"),
                                       ],),
                                     ],),
                                   ),

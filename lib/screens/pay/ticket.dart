@@ -1,7 +1,10 @@
 import 'dart:ui';
+import 'package:cenimabooking/constants.dart';
 import 'package:cenimabooking/screens/pay/profile-empty.dart';
+import 'package:cenimabooking/screens/pay/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
@@ -381,7 +384,7 @@ class Ticket extends StatelessWidget {
                                             // thebatmanFFM (12:3444)
                                             margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 16*fem),
                                             child: Text(
-                                              'The Batman',
+                                              '${movieName}',
                                               style: TextStyle (
 
                                                 fontSize: 18*ffem,
@@ -428,7 +431,7 @@ class Ticket extends StatelessWidget {
                                                               // eurasiacinema77wm (12:3449)
                                                               margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4*fem),
                                                               child: Text(
-                                                                'Eurasia Cinema7',
+                                                                '${cinemaName}',
                                                                 style: TextStyle (
 
                                                                   fontSize: 14*ffem,
@@ -485,7 +488,7 @@ class Ticket extends StatelessWidget {
                                                             ),
                                                             Text(
                                                               // april20221440vXq (12:3453)
-                                                              '6 April 2022, 14:40',
+                                                              '${movieTime}',
                                                               style: TextStyle (
 
                                                                 fontSize: 14*ffem,
@@ -500,44 +503,7 @@ class Ticket extends StatelessWidget {
                                                       SizedBox(
                                                         height: 8*fem,
                                                       ),
-                                                      Container(
-                                                        // itemDmq (12:3454)
-                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 199*fem, 0*fem),
-                                                        width: double.infinity,
-                                                        child: Row(
-                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                          children: [
-                                                            Container(
-                                                              // hall8du (12:3455)
-                                                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 66*fem, 0*fem),
-                                                              child: Text(
-                                                                'Hall',
-                                                                style: TextStyle (
 
-                                                                  fontSize: 14*ffem,
-                                                                  fontWeight: FontWeight.w400,
-                                                                  height: 1.2857142857*ffem/fem,
-                                                                  color: Color(0xff637393),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              // thsLb (12:3456)
-                                                              '6th',
-                                                              style: TextStyle (
-
-                                                                fontSize: 14*ffem,
-                                                                fontWeight: FontWeight.w500,
-                                                                height: 1.2857142857*ffem/fem,
-                                                                color: Color(0xffffffff),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 8*fem,
-                                                      ),
                                                       Container(
                                                         // itemzRD (12:3457)
                                                         margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 155*fem, 0*fem),
@@ -561,7 +527,7 @@ class Ticket extends StatelessWidget {
                                                             ),
                                                             Text(
                                                               // row78dUB (12:3459)
-                                                              '7 row (7, 8)',
+                                                              '${seatNumbers}\n ${seatLocations}',
                                                               style: TextStyle (
 
                                                                 fontSize: 14*ffem,
@@ -599,7 +565,7 @@ class Ticket extends StatelessWidget {
                                                             ),
                                                             Text(
                                                               // paide8P (12:3561)
-                                                              '3200 JD (paid)',
+                                                              '${totalPrice}',
                                                               style: TextStyle (
 
                                                                 fontSize: 14*ffem,
@@ -633,8 +599,7 @@ class Ticket extends StatelessWidget {
                                             height: double.infinity,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                // انتقل إلى صفحة الملف الشخصي (PROFILE)
-                                            Navigator.pop(context);
+                                               context.go(bottomNavPath);
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 primary: Colors.transparent,
@@ -646,7 +611,7 @@ class Ticket extends StatelessWidget {
                                                 ),
                                               ),
                                               child: Text(
-                                                'Refund',
+                                                'Go to Home',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 18 * ffem,
@@ -683,10 +648,8 @@ class Ticket extends StatelessWidget {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => Profile_Empty(
+                                                    builder: (context) => Profile(
                                                       totalPrice: totalPrice,
-                                                      seatNumbers: seatNumbers,
-                                                      seatLocations: seatLocations,
                                                       cinemaName: "Cinema Name",
                                                       movieName: "Movie Name",
                                                       movieTime: "",),

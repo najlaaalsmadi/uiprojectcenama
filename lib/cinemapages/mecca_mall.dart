@@ -76,7 +76,7 @@ class _MeccaCinemaState extends State<MeccaCinema> {
               ),
               const SizedBox(height: 10),
               Container(
-                  height: 300,
+                  height: MediaQuery.of(context).size.height,
                   width: double.infinity,
                   child: ListView.builder(
                       //scrollDirection: Axis.horizontal,
@@ -103,7 +103,27 @@ class _MeccaCinemaState extends State<MeccaCinema> {
                                     )));
                           },
                           child: Container(
-                            margin: const EdgeInsets.all(7),
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  width: 1,
+                                  color: labelsColor // Set the color of the border
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: labelsColor.withOpacity(
+                                      0.2), // Set the color of the shadow
+                                  blurRadius:
+                                  4, // Set the blur radius of the shadow
+                                  spreadRadius:
+                                  2, // Set the spread radius of the shadow
+                                  offset:
+                                  Offset(0, 5), // Set the offset of the shadow
+                                ),
+                              ],
+                            ),
                             width: 170,
                             child: Column(
                               children: [
@@ -140,11 +160,11 @@ class _MeccaCinemaState extends State<MeccaCinema> {
                                     ),
                                     const Row(children: [
                                       SizedBox(width: 90,),
-                                      Text("14:00"),
-                                      SizedBox(width: 10,),
-                                      Text("16:00"),
+                                      Text("15:00"),
                                       SizedBox(width: 10,),
                                       Text("18:00"),
+                                      SizedBox(width: 10,),
+                                      Text("20:00"),
                                     ],),
                                     Text(
                                       ' ${times[1]}',
@@ -152,11 +172,11 @@ class _MeccaCinemaState extends State<MeccaCinema> {
                                     ),
                                     const Row(children: [
                                       SizedBox(width: 90,),
-                                      Text("14:00"),
-                                      SizedBox(width: 10,),
-                                      Text("16:00"),
+                                      Text("15:00"),
                                       SizedBox(width: 10,),
                                       Text("18:00"),
+                                      SizedBox(width: 10,),
+                                      Text("20:00"),
                                     ],),
                                     Text(
                                       ' ${times[2]}',
@@ -164,11 +184,11 @@ class _MeccaCinemaState extends State<MeccaCinema> {
                                     ),
                                     const Row(children: [
                                       SizedBox(width: 90,),
-                                      Text("14:00"),
-                                      SizedBox(width: 10,),
-                                      Text("16:00"),
+                                      Text("15:00"),
                                       SizedBox(width: 10,),
                                       Text("18:00"),
+                                      SizedBox(width: 10,),
+                                      Text("20:00"),
                                     ],),
                                   ],),
                                 ),

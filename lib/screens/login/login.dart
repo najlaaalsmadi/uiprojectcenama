@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      print('user iss::::::' + user.toString());
       if (user != null) {
         context.go(bottomNavPath);
       }

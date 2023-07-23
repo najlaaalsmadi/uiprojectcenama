@@ -41,7 +41,7 @@ class _BodyState extends State<Body> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

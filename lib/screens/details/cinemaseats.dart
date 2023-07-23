@@ -36,7 +36,7 @@ class CustomSeatButton extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 19,
             ),
           ),
           SizedBox(height: 4),
@@ -44,7 +44,7 @@ class CustomSeatButton extends StatelessWidget {
             'JOD $totalPrice',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 14,
+              fontSize: 25,
             ),
           ),
         ],
@@ -133,45 +133,48 @@ class _CinemaSeatsState extends State<CinemaSeats> {
                 },
               ),
             ),
-            CustomSeatButton(
-              isSelected: totalPrice != 0,
-              selectedTickets: selectedSeats.fold(
-                0,
-                    (total, row) => total + row.where((seat) => seat).length,
-              ),
-              totalPrice: totalPrice,
-              onPressed: () {
-                if (totalPrice != 0) {
-                  List<String> seatNumbers = [];
-                  List<String> seatLocations = [];
-                  for (int row = 0; row < selectedSeats.length; row++) {
-                    for (int col = 0; col < selectedSeats[row].length; col++) {
-                      if (selectedSeats[row][col]) {
-                        seatNumbers.add('${String.fromCharCode(65 + row)}${col + 1}');
-                        seatLocations.add('Row ${row + 1}, Seat ${col + 1}');
+            SizedBox(
+              height: 80,
+              child: CustomSeatButton(
+                isSelected: totalPrice != 0,
+                selectedTickets: selectedSeats.fold(
+                  0,
+                      (total, row) => total + row.where((seat) => seat).length,
+                ),
+                totalPrice: totalPrice,
+                onPressed: () {
+                  if (totalPrice != 0) {
+                    List<String> seatNumbers = [];
+                    List<String> seatLocations = [];
+                    for (int row = 0; row < selectedSeats.length; row++) {
+                      for (int col = 0; col < selectedSeats[row].length; col++) {
+                        if (selectedSeats[row][col]) {
+                          seatNumbers.add('${String.fromCharCode(65 + row)}${col + 1}');
+                          seatLocations.add('Row ${row + 1}, Seat ${col + 1}');
+                        }
                       }
                     }
-                  }
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Pay(
-                        selectedTickets: selectedSeats.fold(
-                          0,
-                              (total, row) => total + row.where((seat) => seat).length,
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Pay(
+                          selectedTickets: selectedSeats.fold(
+                            0,
+                                (total, row) => total + row.where((seat) => seat).length,
+                          ),
+                          totalPrice: totalPrice,
+                          seatNumbers: seatNumbers,
+                          seatLocations: seatLocations,
+                          cinemaName: "Cinema Name",
+                          movieName: "Movie Name",
+                          movieTime: "",
                         ),
-                        totalPrice: totalPrice,
-                        seatNumbers: seatNumbers,
-                        seatLocations: seatLocations,
-                        cinemaName: "Cinema Name",
-                        movieName: "Movie Name",
-                        movieTime: "",
                       ),
-                    ),
-                  );
-                }
-              },
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
