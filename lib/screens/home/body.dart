@@ -84,42 +84,29 @@ class _BodyState extends State<Body> {
               ],
             ),
             SearchWidget(),
+            SizedBox(height: 10,),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              alignment: Alignment.centerLeft,
-              child: const Row(
-                children: [
-                  Text(
-                    "Now",
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    " Showing",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            MoviePoster(trending: trendingmovies),
-            Container(
-              margin: EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               alignment: Alignment.centerLeft,
                 child: Text("Search By City",style: TextStyle(fontSize: 20,color: Colors.white),)),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Row(
               //mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(decoration: BoxDecoration(color: labelsColor,borderRadius: BorderRadius.circular(10)),
-                    margin: EdgeInsets.only(left: 10),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(color: labelsColor,borderRadius: BorderRadius.circular(10)),
+                    //margin: EdgeInsets.only(left: 10),
                     child: TextButton(onPressed: (){
                       context.go(irbidCategoryPath);
                     }, child: Text("Irbid",style: TextStyle(fontSize: 20,color: Colors.white),),)),
                 SizedBox(width: 20,),
-                Container(decoration: BoxDecoration(color: labelsColor,borderRadius: BorderRadius.circular(10)),
-                    margin: EdgeInsets.only(left: 10),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(color: labelsColor,borderRadius: BorderRadius.circular(10)),
+                    //margin: EdgeInsets.only(left: 10),
                     child: TextButton(onPressed: (){
                       context.go(ammanCategoryPath);
                     }, child: Text("Amman",style: TextStyle(fontSize: 20,color: Colors.white),),)),

@@ -506,7 +506,7 @@ class Ticket extends StatelessWidget {
 
                                                       Container(
                                                         // itemzRD (12:3457)
-                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 155*fem, 0*fem),
+                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 70*fem, 0*fem),
                                                         width: double.infinity,
                                                         child: Row(
                                                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -556,7 +556,7 @@ class Ticket extends StatelessWidget {
                                                                 'Cost',
                                                                 style: TextStyle (
 
-                                                                  fontSize: 10*ffem,
+                                                                  fontSize: 12,
                                                                   fontWeight: FontWeight.w400,
                                                                   height: 1.2857142857*ffem/fem,
                                                                   color: Color(0xff637393),
@@ -568,7 +568,7 @@ class Ticket extends StatelessWidget {
                                                               '${totalPrice}',
                                                               style: TextStyle (
 
-                                                                fontSize: 14*ffem,
+                                                                fontSize: 14,
                                                                 fontWeight: FontWeight.w500,
                                                                 height: 1.2857142857*ffem/fem,
                                                                 color: Color(0xffffffff),

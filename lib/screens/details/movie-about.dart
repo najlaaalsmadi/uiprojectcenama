@@ -51,7 +51,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
     return times.toSet().toList();
   }
 
-  String selectedDate = DateTime.now().toString();
+  String selectedDate = '19';
 
   @override
   Widget build(BuildContext context) {

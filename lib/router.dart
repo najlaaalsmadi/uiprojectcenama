@@ -60,10 +60,10 @@ GoRouter? router = GoRouter(initialLocation: splashScreenPath, routes: [
                                   key: key,
                                 ),
   ),*/
-  GoRoute(
+  /*GoRoute(
     path: paymentFormPath,
     builder: (context, state) => const PaymentForm(),
-  ),
+  ),*/
   GoRoute(
     path: registerScreenPath,
     builder: (context, state) => const RegisterScreen(),

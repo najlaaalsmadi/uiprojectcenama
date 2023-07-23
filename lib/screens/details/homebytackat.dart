@@ -12,6 +12,7 @@ class homebytackat extends StatefulWidget {
   @override
   const homebytackat({
     Key? key,
+
     required this.name,
     required this.description,
     required this.bannerurl,

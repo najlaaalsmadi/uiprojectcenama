@@ -66,7 +66,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               ),
               fillColor: Colors.black38,
               filled: true,
-              hintText: "Search movie",
+              hintText: "Search for Cinema",
               hintStyle: const TextStyle(color: Colors.grey),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),

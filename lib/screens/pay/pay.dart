@@ -1,4 +1,5 @@
 import 'package:cenimabooking/constants.dart';
+import 'package:cenimabooking/screens/pay/payment_form.dart';
 import 'package:cenimabooking/screens/pay/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
@@ -269,7 +270,7 @@ class _PayState extends State<Pay> {
                                                 ),
                                                 Container(
                                                   // itemV5Z (12:3233)
-                                                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 155*fem, 0*fem),
+                                                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 80*fem, 0*fem),
                                                   width: double.infinity,
                                                   child: Row(
                                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -646,7 +647,7 @@ class _PayState extends State<Pay> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Ticket(
+                                        builder: (context) => PaymentForm(
                                           totalPrice: widget.totalPrice,
                                           seatNumbers: widget.seatNumbers,
                                           seatLocations: widget.seatLocations,

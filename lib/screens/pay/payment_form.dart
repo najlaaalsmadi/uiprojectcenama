@@ -3,7 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class PaymentForm extends StatefulWidget {
-  const PaymentForm({Key? key}) : super(key: key);
+  PaymentForm({
+    required this.totalPrice,
+    required this.seatNumbers,
+    required this.seatLocations,
+    this.cinemaName,
+    this.movieName,
+    this.movieTime,super.key});
+
+  final int totalPrice;
+  final List<String> seatNumbers;
+  final List<String> seatLocations;
+  final String? cinemaName;
+  final String? movieName;
+  final String? movieTime;
+  String currentTime =
+  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
+  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
+
 
   @override
   State<PaymentForm> createState() => _PaymentFormState();
@@ -177,7 +194,7 @@ class _PaymentFormState extends State<PaymentForm> {
               ),
               child: Center(
                 child: Text(
-                  'Pay • 3200 ₸',
+                  'Pay • ${widget.totalPrice}',
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -356,7 +373,8 @@ Column phoneInput() {
       ),
       TextButton(
         // buttonNp1 (21:2850)
-        onPressed: () {},
+        onPressed: () {
+        },
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
         ),
