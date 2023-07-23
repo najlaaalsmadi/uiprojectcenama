@@ -12,20 +12,22 @@ class Ticket extends StatelessWidget {
   final int totalPrice;
   final List<String> seatNumbers;
   final List<String> seatLocations;
-  final String? cinemaName;
+  final String cinemaName;
   final String? movieName;
-  final String? movieTime;
-  String currentTime =
-  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
-  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
+  final String? movieTime,movieDate;
+  final String visaCardNumber;
+  final String visaExpiryDate;
+
 
   Ticket({super.key,
     required this.totalPrice,
     required this.seatNumbers,
     required this.seatLocations,
-    this.cinemaName,
+    required this.cinemaName,
     this.movieName,
     this.movieTime,
+    required this.visaCardNumber,
+    required this.visaExpiryDate,this.movieDate,
   });
 
   @override
@@ -165,7 +167,6 @@ class Ticket extends StatelessWidget {
                                       'Show this code to the gatekeeper at the cinema',
                                       textAlign: TextAlign.center,
                                       style: TextStyle (
-
                                         fontSize: 14*ffem,
                                         fontWeight: FontWeight.w400,
                                         height: 1.3*ffem/fem,
@@ -384,7 +385,7 @@ class Ticket extends StatelessWidget {
                                             // thebatmanFFM (12:3444)
                                             margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 16*fem),
                                             child: Text(
-                                              '${movieName}',
+                                              '$movieName',
                                               style: TextStyle (
 
                                                 fontSize: 18*ffem,
@@ -409,12 +410,11 @@ class Ticket extends StatelessWidget {
                                                     children: [
                                                       Container(
                                                         // cinemaSqd (12:3447)
-                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 45*fem, 0*fem),
+                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 35*fem, 0*fem),
                                                         child: Text(
                                                           'Cinema',
                                                           style: TextStyle (
-
-                                                            fontSize: 14*ffem,
+                                                            fontSize: 16*ffem,
                                                             fontWeight: FontWeight.w400,
                                                             height: 1.2857142857*ffem/fem,
                                                             color: Color(0xff637393),
@@ -431,27 +431,17 @@ class Ticket extends StatelessWidget {
                                                               // eurasiacinema77wm (12:3449)
                                                               margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 4*fem),
                                                               child: Text(
-                                                                '${cinemaName}',
+                                                                '$cinemaName',
                                                                 style: TextStyle (
 
-                                                                  fontSize: 14*ffem,
+                                                                  fontSize: 16*ffem,
                                                                   fontWeight: FontWeight.w500,
                                                                   height: 1.2857142857*ffem/fem,
                                                                   color: Color(0xffffffff),
                                                                 ),
                                                               ),
                                                             ),
-                                                            Text(
-                                                              // d9R (12:3450)
-                                                              'ул. Петрова, д.24, ТЦ "Евразия"',
-                                                              style: TextStyle (
 
-                                                                fontSize: 14*ffem,
-                                                                fontWeight: FontWeight.w400,
-                                                                height: 1.2857142857*ffem/fem,
-                                                                color: Color(0xff637393),
-                                                              ),
-                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -459,27 +449,24 @@ class Ticket extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Container(
-                                                  // autogroupbzejjCT (AjKaTjhTZEEBtA1XWbbzej)
-                                                  padding: EdgeInsets.fromLTRB(0*fem, 8*fem, 0*fem, 0*fem),
+                                                  padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 0*fem),
                                                   width: double.infinity,
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Container(
-                                                        // itemf67 (12:3451)
                                                         margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 113*fem, 0*fem),
                                                         width: double.infinity,
                                                         child: Row(
                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                           children: [
                                                             Container(
-                                                              // dateBq9 (12:3452)
-                                                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 63*fem, 0*fem),
+                                                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 52*fem, 0*fem),
                                                               child: Text(
                                                                 'Date',
                                                                 style: TextStyle (
 
-                                                                  fontSize: 14*ffem,
+                                                                  fontSize: 16*ffem,
                                                                   fontWeight: FontWeight.w400,
                                                                   height: 1.2857142857*ffem/fem,
                                                                   color: Color(0xff637393),
@@ -488,10 +475,10 @@ class Ticket extends StatelessWidget {
                                                             ),
                                                             Text(
                                                               // april20221440vXq (12:3453)
-                                                              '${movieTime}',
+                                                              '$movieDate $movieTime',
                                                               style: TextStyle (
 
-                                                                fontSize: 14*ffem,
+                                                                fontSize: 16*ffem,
                                                                 fontWeight: FontWeight.w500,
                                                                 height: 1.2857142857*ffem/fem,
                                                                 color: Color(0xffffffff),
@@ -506,19 +493,19 @@ class Ticket extends StatelessWidget {
 
                                                       Container(
                                                         // itemzRD (12:3457)
-                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 70*fem, 0*fem),
+                                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 0*fem),
                                                         width: double.infinity,
                                                         child: Row(
                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                           children: [
                                                             Container(
                                                               // seatsKTV (12:3458)
-                                                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 58*fem, 0*fem),
+                                                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 46*fem, 0*fem),
                                                               child: Text(
                                                                 'Seats',
                                                                 style: TextStyle (
 
-                                                                  fontSize: 14*ffem,
+                                                                  fontSize: 16*ffem,
                                                                   fontWeight: FontWeight.w400,
                                                                   height: 1.2857142857*ffem/fem,
                                                                   color: Color(0xff637393),
@@ -527,9 +514,9 @@ class Ticket extends StatelessWidget {
                                                             ),
                                                             Text(
                                                               // row78dUB (12:3459)
-                                                              '${seatNumbers}\n ${seatLocations}',
+                                                              '$seatLocations\n$seatNumbers',
+                                                              overflow: TextOverflow.clip,
                                                               style: TextStyle (
-
                                                                 fontSize: 14*ffem,
                                                                 fontWeight: FontWeight.w500,
                                                                 height: 1.2857142857*ffem/fem,
@@ -551,12 +538,12 @@ class Ticket extends StatelessWidget {
                                                           children: [
                                                             Container(
                                                               // costuRh (12:3560)
-                                                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 64*fem, 0*fem),
+                                                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 56*fem, 0*fem),
                                                               child: Text(
                                                                 'Cost',
                                                                 style: TextStyle (
 
-                                                                  fontSize: 12,
+                                                                  fontSize: 16*ffem,
                                                                   fontWeight: FontWeight.w400,
                                                                   height: 1.2857142857*ffem/fem,
                                                                   color: Color(0xff637393),
@@ -565,10 +552,10 @@ class Ticket extends StatelessWidget {
                                                             ),
                                                             Text(
                                                               // paide8P (12:3561)
-                                                              '${totalPrice}',
+                                                              '$totalPrice',
                                                               style: TextStyle (
 
-                                                                fontSize: 14,
+                                                                fontSize: 18*ffem,
                                                                 fontWeight: FontWeight.w500,
                                                                 height: 1.2857142857*ffem/fem,
                                                                 color: Color(0xffffffff),
@@ -599,7 +586,7 @@ class Ticket extends StatelessWidget {
                                             height: double.infinity,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                               context.go(bottomNavPath);
+                                                context.go(bottomNavPath);
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 primary: Colors.transparent,
@@ -650,9 +637,9 @@ class Ticket extends StatelessWidget {
                                                   MaterialPageRoute(
                                                     builder: (context) => Profile(
                                                       totalPrice: totalPrice,
-                                                      cinemaName: "Cinema Name",
-                                                      movieName: "Movie Name",
-                                                      movieTime: "",),
+                                                      cinemaName: cinemaName,
+                                                      movieName: movieName,
+                                                      movieTime: movieTime,movieDate:movieDate,),
                                                   ),
                                                 );
                                               },

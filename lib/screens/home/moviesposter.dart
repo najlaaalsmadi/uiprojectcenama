@@ -1,5 +1,3 @@
-//import 'package:cenimabooking/screens/details/details.dart';
-import 'package:cenimabooking/screens/details/movie-about.dart';
 import 'package:flutter/material.dart';
 class MoviePoster extends StatelessWidget {
   final List trending;
@@ -21,7 +19,7 @@ class MoviePoster extends StatelessWidget {
                   itemCount: trending.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () {
+                     /* onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -41,7 +39,7 @@ class MoviePoster extends StatelessWidget {
                                    numOfTarings:trending[index]['vote_count'].toString(),
                                   key: key,
                                 )));
-                      },
+                      },*/
                       child: Container(
                         margin: const EdgeInsets.all(7),
                         width: 170,

@@ -53,7 +53,7 @@ class _MeccaCinemaState extends State<MeccaCinema> {
 
     return times;
   }
-
+  var cinemaName ="Mecca Mall Cinema";
   @override
   Widget build(BuildContext context) {
     List<String> times = getNextThreeDaysTimes();
@@ -71,7 +71,7 @@ class _MeccaCinemaState extends State<MeccaCinema> {
                   Container(
                       alignment: Alignment.centerLeft,
                       child: IconButton(onPressed: (){context.go(bottomNavPath);}, icon: Icon(Icons.arrow_back,color: Colors.white,))),
-                  Container(alignment:Alignment.center,child: Text("welcome to Mecca Mall Cinema")),
+                  Container(alignment:Alignment.center,child: Text('$cinemaName',style: TextStyle(fontSize: 15),)),
                 ],
               ),
               const SizedBox(height: 10),
@@ -100,7 +100,7 @@ class _MeccaCinemaState extends State<MeccaCinema> {
                                           .toString(),
                                       launch_on: trendingmovies[index]
                                       ['release_date'], numOfTarings: trendingmovies[index]['vote_count'].toString(),
-                                    )));
+                                        cinemaName: cinemaName,)));
                           },
                           child: Container(
                             margin: const EdgeInsets.all(10),

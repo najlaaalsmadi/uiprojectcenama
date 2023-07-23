@@ -43,7 +43,7 @@ class _BodyState extends State<Body> {
             const SizedBox(
               height: 30,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CircleAvatar(
@@ -53,55 +53,41 @@ class _BodyState extends State<Body> {
                       'assets/images/logo.png'), // تعيين صورة الشعار هنا
                 ),
                 Column(children: [
-                  const Row(
-                    children: [
-                      Text("Hello",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors
-                                  .white)), //beside hello we will insert the name
-                      // Icon(
-                      //   Icons.waving_hand,
-                      //   color: Colors.yellow,
-                      // ),
-                    ],
-                  ),
+                   Text("Hello",
+                       style: TextStyle(
+                           fontSize: 18,
+                           color: Colors
+                               .white)),
                   Text(
                     "Book your favorite movie",
                     style: TextStyle(
-                        fontSize: 10, color: Colors.blueGrey.shade800),
+                        fontSize: 15, color: Colors.blueGrey),
                   )
                 ]),
-                const SizedBox(
+                SizedBox(
                   width: 20,
                 ),
-                // CircleAvatar(
-                //     backgroundColor: Colors.black38,
-                //     radius: 30,
-                //     child: IconButton(
-                //         onPressed: () {},
-                //         icon: const Icon(Icons.notifications_none_outlined))),
               ],
             ),
             SearchWidget(),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               alignment: Alignment.centerLeft,
-                child: Text("Search By City",style: TextStyle(fontSize: 20,color: Colors.white),)),
+                child: const Text("Search By City",style: TextStyle(fontSize: 20,color: Colors.white),)),
             const SizedBox(height: 10,),
             Row(
               //mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    margin: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     decoration: BoxDecoration(color: labelsColor,borderRadius: BorderRadius.circular(10)),
                     //margin: EdgeInsets.only(left: 10),
                     child: TextButton(onPressed: (){
                       context.go(irbidCategoryPath);
-                    }, child: Text("Irbid",style: TextStyle(fontSize: 20,color: Colors.white),),)),
-                SizedBox(width: 20,),
+                    }, child: const Text("Irbid",style: TextStyle(fontSize: 20,color: Colors.white),),)),
+                const SizedBox(width: 20,),
                 Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     alignment: Alignment.centerLeft,
@@ -109,11 +95,11 @@ class _BodyState extends State<Body> {
                     //margin: EdgeInsets.only(left: 10),
                     child: TextButton(onPressed: (){
                       context.go(ammanCategoryPath);
-                    }, child: Text("Amman",style: TextStyle(fontSize: 20,color: Colors.white),),)),
+                    }, child: const Text("Amman",style: TextStyle(fontSize: 20,color: Colors.white),),)),
             ],),
             Container(
                 alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: TextButton(
                     onPressed: () {
                       context.go(GrandCinemaPath);
@@ -127,7 +113,7 @@ class _BodyState extends State<Body> {
             ),
             Container(
                 alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: TextButton(
                     onPressed: () {
                       context.go(AbdaliCinemaPath);

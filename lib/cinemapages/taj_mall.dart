@@ -52,7 +52,7 @@ class _TajCinemaState extends State<TajCinema> {
 
     return times;
   }
-
+  var cinemaName ="Taj Mall Cinema";
   @override
   Widget build(BuildContext context) {
     List<String> times = getNextThreeDaysTimes();
@@ -70,7 +70,7 @@ class _TajCinemaState extends State<TajCinema> {
                   Container(
                       alignment: Alignment.centerLeft,
                       child: IconButton(onPressed: (){context.go(bottomNavPath);}, icon: Icon(Icons.arrow_back,color: Colors.white,))),
-                  Container(alignment:Alignment.center,child: Text("welcome to Taj Mall Cinema")),
+                  Container(alignment:Alignment.center,child: Text('$cinemaName',style: TextStyle(fontSize: 15),)),
                 ],
               ),
               const SizedBox(height: 10),
@@ -99,7 +99,7 @@ class _TajCinemaState extends State<TajCinema> {
                                           .toString(),
                                       launch_on: trendingmovies[index]
                                       ['release_date'], numOfTarings: trendingmovies[index]['vote_count'].toString(),
-                                    )));
+                                        cinemaName: cinemaName,)));
                           },
                           child: Container(
                             margin: const EdgeInsets.all(10),

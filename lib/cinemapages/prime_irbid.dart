@@ -52,7 +52,7 @@ class _PrimeIrbidState extends State<PrimeIrbid> {
 
     return times;
   }
-
+  var cinemaName ="Prime Cinema Irbid";
   @override
   Widget build(BuildContext context) {
     List<String> times = getNextThreeDaysTimes();
@@ -73,7 +73,7 @@ class _PrimeIrbidState extends State<PrimeIrbid> {
                         //Navigator.pop(context);
                         context.go(bottomNavPath);
                         }, icon: Icon(Icons.arrow_back,color: Colors.white,))),
-                  Container(alignment:Alignment.center,child: Text("welcome to Prime Cinema Irbid")),
+                  Container(alignment:Alignment.center,child: Text('$cinemaName',style: TextStyle(fontSize: 15),)),
                 ],
               ),
               const SizedBox(height: 10),
@@ -102,7 +102,7 @@ class _PrimeIrbidState extends State<PrimeIrbid> {
                                           .toString(),
                                       launch_on: trendingmovies[index]
                                       ['release_date'], numOfTarings: trendingmovies[index]['vote_count'].toString(),
-                                    )));
+                                        cinemaName: cinemaName, )));
                           },
                           child: Container(
                             margin: const EdgeInsets.all(10),

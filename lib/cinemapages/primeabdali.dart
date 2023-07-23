@@ -52,7 +52,7 @@ class _PrimeAbdaliState extends State<PrimeAbdali> {
 
     return times;
   }
-
+  var cinemaName ="Prime Cinema Abdali";
   @override
   Widget build(BuildContext context) {
     List<String> times = getNextThreeDaysTimes();
@@ -72,7 +72,7 @@ class _PrimeAbdaliState extends State<PrimeAbdali> {
                       child: IconButton(onPressed: (){
                         context.go(bottomNavPath);
                         }, icon: Icon(Icons.arrow_back,color: Colors.white,))),
-                  Container(alignment:Alignment.center,child: Text("welcome to Prime Cinema Abdali")),
+                  Container(alignment:Alignment.center,child: Text('$cinemaName',style: TextStyle(fontSize: 15),)),
                 ],
               ),
               const SizedBox(height: 10),
@@ -101,7 +101,7 @@ class _PrimeAbdaliState extends State<PrimeAbdali> {
                                             .toString(),
                                         launch_on: trendingmovies[index]
                                         ['release_date'], numOfTarings: trendingmovies[index]['vote_count'].toString(),
-                                      )));
+                                          cinemaName: cinemaName,)));
                             },
                             child: Container(
                               margin: const EdgeInsets.all(7),

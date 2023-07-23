@@ -2,24 +2,24 @@ import 'package:cenimabooking/screens/pay/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class PaymentForm extends StatefulWidget {
   PaymentForm({
     required this.totalPrice,
     required this.seatNumbers,
     required this.seatLocations,
-    this.cinemaName,
+    required this.cinemaName,
     this.movieName,
-    this.movieTime,super.key});
+    this.movieTime,this.movieDate,
+    Key? key,
+  }) : super(key: key);
 
   final int totalPrice;
   final List<String> seatNumbers;
   final List<String> seatLocations;
-  final String? cinemaName;
+  final String cinemaName;
   final String? movieName;
-  final String? movieTime;
-  String currentTime =
-  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
-  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
+  final String? movieTime,movieDate;
 
 
   @override
@@ -27,34 +27,30 @@ class PaymentForm extends StatefulWidget {
 }
 
 class _PaymentFormState extends State<PaymentForm> {
-
-  late final int totalPrice;
-  late final List<String> seatNumbers;
-  late final List<String> seatLocations;
-  late final String? cinemaName;
-  late final String? movieName;
-  late final String? movieTime;
-  String currentTime =
-  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
-  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
-
-
   int selectedRadioValue = 0;
-
-  void handleRadioValueChange(int value) {
-    setState(() {
-      selectedRadioValue = value;
-    });
-  }
+  bool showVisaDetails = false;
+  String visaCardNumber = '';
+  String visaExpiryDate = '';
+  String cvcCode = '';
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Payment'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              // Navigate back to the previous page when the back button is pressed.
+              Navigator.pop(context);
+            },
+          ),
+          backgroundColor: Color.fromRGBO(26, 34, 50, 1),
+        ),
         backgroundColor: Color.fromRGBO(26, 34, 50, 1),
         body: SingleChildScrollView(
           child: Container(
-            // paymentformEfs (21:3031)
             padding: EdgeInsets.all(5),
             width: double.infinity,
             decoration: BoxDecoration(
@@ -62,24 +58,15 @@ class _PaymentFormState extends State<PaymentForm> {
               borderRadius: BorderRadius.circular(5),
             ),
             child: Container(
-              // statelogin6CH (21:3030)
               padding: EdgeInsets.all(10),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  phoneInput(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  otp(context),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
+                  SizedBox(height: 20),
+                  SizedBox(height: 20),
                   selectPaymentMethod(),
                 ],
               ),
@@ -97,315 +84,239 @@ class _PaymentFormState extends State<PaymentForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Select payment method'),
-          // RadioListTile(
-          //     activeColor: Colors.deepOrange,
-          //     title: Text(
-          //       'Orange wallet',
-          //       style: TextStyle(color: Colors.white),
-          //     ),
-          //     value: 1,
-          //     groupValue: selectedRadioValue,
-          //     onChanged: (newValue) {
-          //       setState(() {
-          //         selectedRadioValue = newValue!;
-          //       });
-          //     }),
+          Text(
+            'Select payment method',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
           Divider(
             color: Colors.grey,
           ),
           RadioListTile(
-              activeColor: Colors.deepOrange,
-              title: Text(
-                'Visa',
-                style: TextStyle(color: Colors.white),
-              ),
-              value: 2,
-              groupValue: selectedRadioValue,
-              onChanged: (newValue) {
-                setState(() {
-                  selectedRadioValue = newValue!;
-                });
-              }),
+            activeColor: Colors.deepOrange,
+            title: Text(
+              'Visa',
+              style: TextStyle(color: Colors.white),
+            ),
+            value: 2,
+            groupValue: selectedRadioValue,
+            onChanged: (newValue) {
+              setState(() {
+                selectedRadioValue = newValue!;
+                showVisaDetails = true;
+              });
+            },
+          ),
           Divider(
             color: Colors.grey,
           ),
           RadioListTile(
-              activeColor: Colors.deepOrange,
-              title: Text(
-                'Cash',
-                style: TextStyle(color: Colors.white),
-              ),
-              value: 3,
-              groupValue: selectedRadioValue,
-              onChanged: (newValue) {
-                setState(() {
-                  selectedRadioValue = newValue!;
-                });
-              }),
+            activeColor: Colors.deepOrange,
+            title: Text(
+              'Cash',
+              style: TextStyle(color: Colors.white),
+            ),
+            value: 3,
+            groupValue: selectedRadioValue,
+            onChanged: (newValue) {
+              setState(() {
+                selectedRadioValue = newValue!;
+                showVisaDetails = false;
+              });
+            },
+          ),
           Divider(
             color: Colors.grey,
           ),
           Row(
             children: [
               IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )),
+                onPressed: () {},
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
               Text(
                 'Add new card',
                 style: TextStyle(color: Colors.white),
               ),
             ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Ticket(
-                totalPrice: totalPrice,
-                seatNumbers: seatNumbers,
-                seatLocations: seatLocations,
-                cinemaName: "Cinema Name",
-                movieName: "Movie Name",
-                movieTime: "dateMovie",)));
-            },
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ),
-            child: Container(
-              width: double.infinity,
-              height: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                gradient: LinearGradient(
-                  begin: Alignment(0, -1),
-                  end: Alignment(0, 1),
-                  colors: <Color>[Color(0xffff8036), Color(0xfffc6c19)],
-                  stops: <double>[0, 1],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x3fff8036),
-                    offset: Offset(0, 4),
-                    blurRadius: 8,
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  'Pay • ${widget.totalPrice}',
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
+          _buildVisaDetails(),
+          SizedBox(height: 10,),
+          _buildPaymentButton(),
         ],
       ),
     );
   }
 
-  Container otp(BuildContext context) {
-    return Container(
-      // stateconfirm9yB (21:3029)
-      padding: EdgeInsets.all(10),
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            // description5bw (21:2885)
-            'Enter the password from the SMS',
-            textAlign: TextAlign.center,
+  Widget _buildPaymentButton() {
+    if (selectedRadioValue == 2 && showVisaDetails) {
+      // If Visa is selected and Visa details are shown, return the Visa payment button.
+      return ElevatedButton(
+        onPressed: () {
+          _onPayButtonPressed();
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.deepOrange,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          minimumSize: Size(double.infinity, 0),
+        ),
+        child: Text(
+          'Pay • ${widget.totalPrice}',
+          style: TextStyle(fontSize: 18),
+        ),
+      );
+    } else if (selectedRadioValue == 3) {
+      // If Cash is selected, return the Cash payment button.
+      return ElevatedButton(
+        onPressed: () {
+          _onCashPaymentButtonPressed();
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.deepOrange,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          minimumSize: Size(double.infinity, 0),
+        ),
+        child: Text(
+          'Confirm Cash Payment',
+          style: TextStyle(fontSize: 18),
+        ),
+      );
+    } else {
+      // If neither Visa nor Cash is selected, return an empty container (no button).
+      return Container();
+    }
+  }
+
+  void _onPayButtonPressed() {
+    if (selectedRadioValue == 2 && showVisaDetails && visaCardNumber.isNotEmpty && visaExpiryDate.isNotEmpty && cvcCode.isNotEmpty) {
+      // If Visa is selected and Visa details are shown and card number, expiry date, and CVC code are provided,
+      // go to the TicketScreen.
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Ticket(
+            totalPrice: widget.totalPrice,
+            seatNumbers: widget.seatNumbers,
+            seatLocations: widget.seatLocations,
+            cinemaName: widget.cinemaName,
+            movieName: widget.movieName,
+            movieTime: widget.movieTime,
+            movieDate:widget.movieDate,
+            visaCardNumber: visaCardNumber, // Use the entered Visa card number.
+            visaExpiryDate: visaExpiryDate, // Use the entered expiry date.
+            // Use the entered CVC code.
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            // otpinputQu7 (21:2862)
-            width: double.infinity,
-            height: 56,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                otpInputBox(context, 9),
-                otpInputBox(context, 9),
-                otpInputBox(context, 9),
-                otpInputBox(context, 9),
-              ],
+        ),
+      );
+    } else {
+      // For other payment methods (e.g., Cash) or if Visa details are incomplete, show an alert dialog.
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Payment Error'),
+          content: Text('Please enter valid Visa card details.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
             ),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          TextButton(
-            // buttonA33 (21:2857)
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ),
-            child: Container(
-              width: double.infinity,
-              height: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                gradient: LinearGradient(
-                  begin: Alignment(0, -1),
-                  end: Alignment(0, 1),
-                  colors: <Color>[Color(0xffff8036), Color(0xfffc6c19)],
-                  stops: <double>[0, 1],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x3fff8036),
-                    offset: Offset(0, 4),
-                    blurRadius: 8,
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  'Continue',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Container(
-            // actionsZay (21:3223)
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextButton(
-                  // button7Mb (21:3224)
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Container(
-                    width: double.infinity,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Change number',
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  // buttonNYR (21:3225)
-                  width: double.infinity,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Resend (0:59)',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
+      );
+    }
+  }
+
+  void _onCashPaymentButtonPressed() {
+    // Perform any actions you need for Cash payment here.
+    // For example, you can show a success dialog or navigate to the next screen.
+    // For this example, let's navigate to the TicketScreen directly when the Cash button is pressed.
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Ticket(
+          totalPrice: widget.totalPrice,
+          seatNumbers: widget.seatNumbers,
+          seatLocations: widget.seatLocations,
+          cinemaName: widget.cinemaName,
+          movieName: widget.movieName,
+          movieTime: widget.movieTime,
+          movieDate:widget.movieDate,
+          visaCardNumber: visaCardNumber, // Since it's Cash payment, we leave the Visa card number empty.
+          visaExpiryDate: visaExpiryDate, // Since it's Cash payment, we leave the expiry date empty.
+          // Since it's Cash payment, we leave the CVC code empty.
+        ),
       ),
     );
   }
 
-  Container otpInputBox(BuildContext context, int num) {
+  Container _buildVisaDetails() {
+    if (!showVisaDetails) {
+      return Container();
+    }
+
     return Container(
-      // inputM3f (21:2863)
-      padding: EdgeInsets.all(5),
-      width: MediaQuery.of(context).size.width * 0.2,
-      height: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0x196d9eff)),
+        border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Container(
-        // wrapgLq (I21:2863;8:185)
-        width: MediaQuery.of(context).size.width * 0.2,
-        height: double.infinity,
-        child: Center(
-          child: Text(
-            num.toString(),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Card Number',
+                labelStyle: TextStyle(color: Colors.white),
+              ),
+              style: TextStyle(color: Colors.white),
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                setState(() {
+                  visaCardNumber = value;
+                });
+              },
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Expiry Date',
+                labelStyle: TextStyle(color: Colors.white),
+              ),
+              style: TextStyle(color: Colors.white),
+              keyboardType: TextInputType.datetime,
+              onChanged: (value) {
+                setState(() {
+                  visaExpiryDate = value;
+                });
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'CVC Code',
+                labelStyle: TextStyle(color: Colors.white),
+              ),
+              style: TextStyle(color: Colors.white),
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                setState(() {
+                  cvcCode = value;
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
-}
-
-Column phoneInput() {
-  return Column(
-    children: [
-      Container(
-        // inputpPB (21:2849)
-        margin: EdgeInsets.fromLTRB(0, 0, 3, 12),
-        padding: EdgeInsets.fromLTRB(0, 16, 16, 4),
-        width: double.infinity,
-        height: 56,
-        decoration: BoxDecoration(
-          border: Border.all(color: Color(0x196d9eff)),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Container(
-            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-            width: 110,
-            height: double.infinity,
-            child: TextField(
-              style: TextStyle(color: Colors.grey),
-              decoration: InputDecoration(
-                  hintText: 'Phone number',
-                  hintStyle: TextStyle(color: Colors.grey)),
-            )),
-      ),
-      TextButton(
-        // buttonNp1 (21:2850)
-        onPressed: () {
-        },
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
-        child: Container(
-          width: double.infinity,
-          height: 56,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            gradient: LinearGradient(
-              begin: Alignment(0, -1),
-              end: Alignment(0, 1),
-              colors: <Color>[Color(0xffff8036), Color(0xfffc6c19)],
-              stops: <double>[0, 1],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x3fff8036),
-                offset: Offset(0, 4),
-                blurRadius: 8,
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              'Continue',
-              style: TextStyle(color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-      ),
-    ],
-  );
 }

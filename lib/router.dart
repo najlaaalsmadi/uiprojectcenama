@@ -7,11 +7,9 @@ import 'package:cenimabooking/cinemapages/taj_mall.dart';
 import 'package:cenimabooking/cities/amman.dart';
 import 'package:cenimabooking/cities/irbid.dart';
 import 'package:cenimabooking/constants.dart';
-import 'package:cenimabooking/screens/details/homebytackat.dart';
 import 'package:cenimabooking/screens/home/bottom_navigation_bat.dart';
 import 'package:cenimabooking/screens/login/auth.dart';
 import 'package:cenimabooking/screens/login/login.dart';
-import 'package:cenimabooking/screens/pay/payment_form.dart';
 import 'package:cenimabooking/screens/register/register.dart';
 import 'package:cenimabooking/screens/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -33,10 +31,10 @@ GoRouter? router = GoRouter(initialLocation: splashScreenPath, routes: [
     path: bottomNavPath,
     builder: (context, state) => const BottomNavigation(),
   ),
-  GoRoute(
+  /*GoRoute(
     path: HomebytackatPath,
-    builder: (context, state) =>  homebytackat(name: '', description: '', bannerurl: '', posterurl: '', vote: '', launch_on: '', numOfTarings: '',),
-  ),
+    builder: (context, state) =>  homebytackat(name: '', description: '', bannerurl: '', posterurl: '', vote: '', launch_on: '', numOfTarings: '', cinemaName: '',),
+  ),*/
   GoRoute(
     path: homeScreenPath,
     builder: (context, state) => const HomeScreen(),

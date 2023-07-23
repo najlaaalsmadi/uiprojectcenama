@@ -7,12 +7,14 @@ class CustomSeatButton extends StatelessWidget {
   final int selectedTickets;
   final int totalPrice;
   final VoidCallback onPressed;
+  final String cinemaName,movieDate,movieTime;
 
   const CustomSeatButton({
     required this.isSelected,
     required this.selectedTickets,
     required this.totalPrice,
     required this.onPressed,
+    required this.cinemaName, required this.movieDate, required this.movieTime,
   });
 
   @override
@@ -54,6 +56,17 @@ class CustomSeatButton extends StatelessWidget {
 }
 
 class CinemaSeats extends StatefulWidget {
+
+
+  CinemaSeats({required this.cinemaName,
+    required this.movieName,
+    this.movieTime,super.key, this.movieDate});
+
+  final String cinemaName;
+  final String movieName;
+  final String? movieTime;
+  final String? movieDate;
+
   @override
   _CinemaSeatsState createState() => _CinemaSeatsState();
 }
@@ -150,7 +163,7 @@ class _CinemaSeatsState extends State<CinemaSeats> {
                       for (int col = 0; col < selectedSeats[row].length; col++) {
                         if (selectedSeats[row][col]) {
                           seatNumbers.add('${String.fromCharCode(65 + row)}${col + 1}');
-                          seatLocations.add('Row ${row + 1}, Seat ${col + 1}');
+                          seatLocations.add('Row ${row + 1},Seat ${col + 1}');
                         }
                       }
                     }
@@ -166,14 +179,17 @@ class _CinemaSeatsState extends State<CinemaSeats> {
                           totalPrice: totalPrice,
                           seatNumbers: seatNumbers,
                           seatLocations: seatLocations,
-                          cinemaName: "Cinema Name",
-                          movieName: "Movie Name",
-                          movieTime: "",
+                          cinemaName: widget.cinemaName,
+                          movieName: widget.movieName,
+                          movieDate:widget.movieDate,
+                          movieTime: widget.movieTime, visaCardNumber: '', visaExpiryDate: '',
                         ),
                       ),
                     );
                   }
-                },
+                }, cinemaName: widget.cinemaName,
+                movieDate:'${widget.movieDate}',
+                movieTime: '${widget.movieTime}',
               ),
             ),
           ],

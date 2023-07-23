@@ -53,7 +53,7 @@ class _PrimeAlbarakaState extends State<PrimeAlbaraka> {
 
     return times;
   }
-
+ var cinemaName ="Prime Cinema Amman Albaraka Mall";
   @override
   Widget build(BuildContext context) {
     List<String> times = getNextThreeDaysTimes();
@@ -73,7 +73,7 @@ class _PrimeAlbarakaState extends State<PrimeAlbaraka> {
                       child: IconButton(onPressed: (){
                         context.go(bottomNavPath);
                         }, icon: Icon(Icons.arrow_back,color: Colors.white,))),
-                  Container(alignment:Alignment.center,child: Text("welcome to Prime Cinema Irbid")),
+                  Container(alignment:Alignment.center,child: Text('$cinemaName',style: TextStyle(fontSize: 15),)),
                 ],
               ),
               const SizedBox(height: 10),
@@ -102,7 +102,7 @@ class _PrimeAlbarakaState extends State<PrimeAlbaraka> {
                                             .toString(),
                                         launch_on: trendingmovies[index]
                                         ['release_date'], numOfTarings: trendingmovies[index]['vote_count'].toString(),
-                                      )));
+                                      cinemaName: cinemaName,)));
                           },
                           child: Container(
                             margin: const EdgeInsets.all(10),

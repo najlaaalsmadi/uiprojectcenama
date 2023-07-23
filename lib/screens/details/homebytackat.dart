@@ -10,9 +10,7 @@ import 'package:tmdb_api/tmdb_api.dart';
 
 class homebytackat extends StatefulWidget {
   @override
-  const homebytackat({
-    Key? key,
-
+   const homebytackat({
     required this.name,
     required this.description,
     required this.bannerurl,
@@ -20,9 +18,9 @@ class homebytackat extends StatefulWidget {
     required this.vote,
     required this.launch_on,
     required this.numOfTarings,
-  })
-      : super(key: key);
+     required this.cinemaName,super.key, required this.movieTime, required this.movieDate});
   final String name, description, bannerurl, posterurl, vote, launch_on,numOfTarings;
+  final String cinemaName,movieTime,movieDate;
 
   State<homebytackat> createState() => _homebytackatState();
 }
@@ -67,9 +65,13 @@ class _homebytackatState extends State<homebytackat> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Header(name: widget.name, trending: trendingmovies, description: widget.description, bannerurl:widget.bannerurl , posterurl: widget.posterurl, vote: widget.vote, launch_on: widget.launch_on, numOfTarings: widget.numOfTarings,),
-                CircleAvatarButtonsRow(),
-                CinemaSeats(),
+                Header(name: widget.name, trending: trendingmovies, description: widget.description,
+                  bannerurl:widget.bannerurl , posterurl: widget.posterurl, vote: widget.vote,
+                  launch_on: widget.launch_on, numOfTarings: widget.numOfTarings,
+                  cinemaName: widget.cinemaName,movieDate:widget.movieDate,movieTime:widget.movieTime,
+                ),
+                 CircleAvatarButtonsRow(),
+                CinemaSeats(cinemaName: widget.cinemaName, movieName: widget.name,movieDate:widget.movieDate,movieTime:widget.movieTime,),
               ],
             ),
           ),

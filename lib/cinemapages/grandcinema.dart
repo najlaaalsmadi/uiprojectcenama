@@ -47,6 +47,7 @@ class _GrandCinemaState extends State<GrandCinema> {
 
     return times;
   }
+  var cinemaName="Grand Cinema City Mall";
   @override
   Widget build(BuildContext context) {
     List<String> times = getNextThreeDaysTimes();
@@ -67,7 +68,7 @@ class _GrandCinemaState extends State<GrandCinema> {
                 Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(top: 10,bottom: 20,left: 10,),
-                  child: Text("Welcome \n Grand Cinema City Mall"),),
+                  child: Text('$cinemaName',style: TextStyle(fontSize: 15),),),
                 const SizedBox(height: 10),
                 Container(
                     height: MediaQuery.of(context).size.height,
@@ -94,7 +95,7 @@ class _GrandCinemaState extends State<GrandCinema> {
                                             .toString(),
                                         launch_on: trendingmovies[index]
                                         ['release_date'], numOfTarings: trendingmovies[index]['vote_count'].toString(),
-                                      )));
+                                          cinemaName: cinemaName,)));
                             },
                             child: Container(
                               margin: const EdgeInsets.all(10),

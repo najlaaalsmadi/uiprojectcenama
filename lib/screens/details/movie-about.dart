@@ -1,4 +1,4 @@
-import 'package:cenimabooking/constants.dart';
+import 'package:cenimabooking/screens/details/homebytackat.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,9 +12,10 @@ class MoviesAbout extends StatefulWidget {
     required this.vote,
     required this.launch_on,
     required this.numOfTarings,
+    required this.cinemaName
   }) : super(key: key);
 
-  final String name, description, bannerurl, posterurl, vote, launch_on, numOfTarings;
+  final String name, description, bannerurl, posterurl, vote, launch_on, numOfTarings,cinemaName;
 
   @override
   State<MoviesAbout> createState() => _MoviesAboutState();
@@ -43,15 +44,19 @@ class _MoviesAboutState extends State<MoviesAbout> {
       DateTime nextDay = currentDate.add(Duration(days: i));
 
       String formattedTime =
-          '${nextDay.day.toString().padLeft(2, '0')}/${nextDay.month.toString().padLeft(2, '0')}/${nextDay.year.toString()}';
+          '${nextDay.day.toString().padLeft(2, '0')}/${nextDay.month.toString().padLeft(2, '0')}';
 
       times.add(formattedTime);
     }
 
     return times.toSet().toList();
   }
+  final List<String> grandcinema = [
+    '15:00', '18:00', '20:00'
+  ];
+  String selectedTime='';
+  String selectedDate='';
 
-  String selectedDate = '19';
 
   @override
   Widget build(BuildContext context) {
@@ -72,26 +77,24 @@ class _MoviesAboutState extends State<MoviesAbout> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ////////////////////////////////////////////////////**** top navigation bar ****///////////////////////////////////////////////////////////////////////////////////////////////////////
-            Container(
-              child: BottomNavigationBar(
-                selectedItemColor: const Color(0xffff7f36),
-                unselectedItemColor: labelsColor,
-                backgroundColor: seconderyColor.withOpacity(1),
-                selectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                onTap: (index) {
-                  setState(() {
-                    pageIndex = index;
-                  });
-                },
-                currentIndex: pageIndex,
-                elevation: 0,
-                type: BottomNavigationBarType.fixed,
-                items: const [
-                  BottomNavigationBarItem(icon: SizedBox(width: 0, height: 0), label: "About"),
-                  BottomNavigationBarItem(icon: SizedBox(width: 0, height: 0), label: "Sessions")
-                ],
-              ),
+            BottomNavigationBar(
+              selectedItemColor: const Color(0xffff7f36),
+              unselectedItemColor: labelsColor,
+              backgroundColor: seconderyColor.withOpacity(1),
+              selectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              onTap: (index) {
+                setState(() {
+                  pageIndex = index;
+                });
+              },
+              currentIndex: pageIndex,
+              elevation: 0,
+              type: BottomNavigationBarType.fixed,
+              items: const [
+                BottomNavigationBarItem(icon: SizedBox(width: 0, height: 0), label: "About"),
+                BottomNavigationBarItem(icon: SizedBox(width: 0, height: 0), label: "Sessions")
+              ],
             ),
             Container(
               color: Colors.black,
@@ -133,7 +136,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "${widget.vote.toString()}",
+                      widget.vote,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 16,
@@ -158,17 +161,17 @@ class _MoviesAboutState extends State<MoviesAbout> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      "${widget.numOfTarings}",
+                      widget.numOfTarings,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                         color: Color(0xffffffff),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Number Of Ratings',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -195,10 +198,10 @@ class _MoviesAboutState extends State<MoviesAbout> {
               children: [
                 Text(
                   widget.description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xffffffff),
+                    color:  Color(0xffffffff),
                   ),
                 ),
                 SizedBox(height: 10 * fem),
@@ -232,7 +235,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                                 border: Border.all(color: const Color(0x196d9eff)),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "+16",
                                   style: TextStyle(
@@ -263,7 +266,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "1:55",
                               style: TextStyle(
                                 fontSize: 11,
@@ -293,7 +296,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                             ),
                             Text(
                               widget.launch_on,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xffffffff),
@@ -319,7 +322,7 @@ class _MoviesAboutState extends State<MoviesAbout> {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "",
                               style: TextStyle(
                                 fontSize: 11,
@@ -348,172 +351,48 @@ class _MoviesAboutState extends State<MoviesAbout> {
       color: mainColor,
       child: Stack(
         children: [
-          ////////////////////////////////////////////////////**** Filter bar ****///////////////////////////////////////////////////////////////////////////////////////////////////////
           Positioned(
             left: 0 * fem,
             child: Container(
               width: 400 * fem,
               height: 79 * fem,
-              decoration: BoxDecoration(
-                color: const Color(0xff1e283d),
+              decoration: const BoxDecoration(
+                color: Color(0xff1e283d),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  //////////////////////////////////////////////////////**** date icon ****///////////////////////////////////////////////////////////////////////////////////////////////////////
-                  Container(
-                    padding: EdgeInsets.fromLTRB(36.5 * fem, 19 * fem, 36.5 * fem, 5 * fem),
-                    height: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 1 * fem),
-                          width: 18 * fem,
-                          height: 18 * fem,
-                          child: Image.asset(
-                            'assets/images/calendar-B83.png',
-                            width: 18 * fem,
-                            height: 18 * fem,
-                          ),
-                        ),
-                        DropdownButton<String>(
-                          dropdownColor: seconderyColor,
-                          value: selectedDate,
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedDate = newValue!;
-                            });
-                          },
-                          items: [
-                            '19','20','21',
-                            /*
-                            times[0],
-                            times[1],
-                            times[2],*/
+              child:TextButton(
+                onPressed: () {
 
-                          ].map<DropdownMenuItem<String>>(
-                                (String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    height: 1.1428571429 / fem,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
-                              );
-                            },
-                          ).toList(),
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                ),
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0 * fem, 20 * fem, 0.5 * fem, 0 * fem),
+                  height: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 4 * fem),
+                        width: 40 * fem,
+                        height: 24 * fem,
+                        child:  Icon(
+                          Icons.movie_filter_rounded,color:Colors.orange.shade600 ,
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 60 * fem),
-                  //////////////////////////////////////////////////////**** By Cenama icon ****///////////////////////////////////////////////////////////////////////////////////////////////////////
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(10.5 * fem, 20 * fem, 0.5 * fem, 0 * fem),
-                      height: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(2 * fem, 0 * fem, 0 * fem, 4 * fem),
-                            width: 40 * fem,
-                            height: 24 * fem,
-                            child: Image.asset(
-                              'assets/images/option-yTD.png',
-                              width: 40 * fem,
-                              height: 24 * fem,
-                            ),
-                          ),
-                          Text(
-                            'By cinema',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              height: 1.1428571429 / fem,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                        ],
                       ),
-                    ),
+                      Text(
+                        'By cinema',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          height: 1.1428571429 / fem,
+                          color: const Color(0xffffffff),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          ),
-          //////////////////////////////////////////////////////**** labels bar ****///////////////////////////////////////////////////////////////////////////////////////////////////////
-          Positioned(
-            top: 90,
-            child: Container(
-              width: 440,
-              height: 30 * fem,
-              color: const Color(0xff253454),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(width: 35 * fem),
-                  Text(
-                    'Time',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      height: 1.1666666667 / fem,
-                      color: Color(0xff637393),
-                    ),
-                  ),
-                  SizedBox(width: 60 * fem),
-                  Text(
-                    'Adult',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      height: 1.1666666667 / fem,
-                      color: Color(0xff637393),
-                    ),
-                  ),
-                  SizedBox(width: 25 * fem),
-                  Text(
-                    'Child',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      height: 1.1666666667 / fem,
-                      color: Color(0xff637393),
-                    ),
-                  ),
-                  SizedBox(width: 25 * fem),
-                  Text(
-                    'Student',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      height: 1.1666666667 / fem,
-                      color: Color(0xff637393),
-                    ),
-                  ),
-                  SizedBox(width: 20 * fem),
-                  Text(
-                    'VIP',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      height: 1.1666666667 / fem,
-                      color: Color(0xff637393),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
@@ -522,89 +401,120 @@ class _MoviesAboutState extends State<MoviesAbout> {
             top: 110 * fem,
             child: Container(
               color: mainColor,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(31 * fem, 16 * fem, 0 * fem, 17 * fem),
-                    height: 90 * fem,
-                    child: Row(
+              child: Container(
+                //alignment: Alignment.centerLeft,
+                padding: EdgeInsets.fromLTRB(31 * fem, 16 * fem, 0 * fem, 17 * fem),
+                height: 400*fem,
+                child:
+                    //////////////////////////////////////////////////////**** rest of the item ****///////////////////////////////////////////////////////////////////////////////////////////////////////
+                    Column(
                       children: [
-                        //////////////////////////////////////////////////////**** Time column ****///////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 4 * fem),
-                          //alignment: Alignment.center,
-                          child: const Text(
-                            '14:40',
+                        Align(
+                          child: Text(
+                            widget.cinemaName,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 14,
                               fontWeight: FontWeight.w700,
-                              color: Color(0xffffffff),
+                              height: 1.7142857143 / fem,
+                              color: const Color(0xffffffff),
                             ),
                           ),
                         ),
-                        SizedBox(width: 30 * fem),
-                        //////////////////////////////////////////////////////**** rest of the item ****///////////////////////////////////////////////////////////////////////////////////////////////////////
-                        Column(
-                          children: [
-                            Align(
-                              child: Text(
-                                'Prime Cinema Abdali',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  height: 1.7142857143 / fem,
-                                  color: Color(0xffffffff),
+                        Container(
+                          height: 18 * fem,
+                          padding: EdgeInsets.fromLTRB(15 * fem, 0 * fem, 0 * fem, 0 * fem),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 40 * fem,
+                                height: double.infinity,
+                                child: Center(
+                                  child: Text(
+                                    'price:',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.2857142857 / fem,
+                                      color: const Color(0xffffffff),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              height: 18 * fem,
-                              padding: EdgeInsets.fromLTRB(15 * fem, 0 * fem, 0 * fem, 0 * fem),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 40 * fem,
-                                    height: double.infinity,
-                                    child: Center(
-                                      child: Text(
-                                        'price:',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2857142857 / fem,
-                                          color: Color(0xffffffff),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 21 * fem,
-                                  ),
-                                  Container(
-                                    width: 40 * fem,
-                                    height: double.infinity,
-                                    child: Center(
-                                      child: Text(
-                                        '8 JD',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2857142857 / fem,
-                                          color: Color(0xffffffff),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              SizedBox(
+                                width: 21 * fem,
                               ),
+                              SizedBox(
+                                width: 40 * fem,
+                                height: double.infinity,
+                                child: Center(
+                                  child: Text(
+                                    '8 JD',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.2857142857 / fem,
+                                      color: const Color(0xffffffff),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        /////////////////here row for time and date///////////////////
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0 * fem, 20 * fem, 0 * fem, 4 * fem),
+                          width: 200*fem,
+                          child: PopupMenuButton<String>(
+                            initialValue: selectedDate,
+                            itemBuilder: (BuildContext context) {
+                              return times.map((String dates) {
+                                return PopupMenuItem<String>(
+                                  value: dates,
+                                  child: Text(dates),
+                                );
+                              }).toList();
+                            },
+                            onSelected: (String? newValue1) {
+                              setState(() {
+                                selectedDate = newValue1!;
+                              });
+                            },
+                            child: ListTile(
+                              title: Text('Selected date:\n ${selectedDate ?? "None"}',style: TextStyle(color: Colors.white),),
+                              trailing: Icon(Icons.arrow_drop_down,color: labelsColor,),
                             ),
-                          ],
+                          ),
+                        ),
+
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0 * fem, 20 * fem, 0 * fem, 4 * fem),
+                          width: 200*fem,
+                          child: PopupMenuButton<String>(
+                            initialValue: selectedTime,
+                            itemBuilder: (BuildContext context) {
+                              return grandcinema.map((String time) {
+                                return PopupMenuItem<String>(
+                                  value: time,
+                                  child: Text(time),
+                                );
+                              }).toList();
+                            },
+                            onSelected: (String? newValue) {
+                              setState(() {
+                                selectedTime = newValue!;
+                              });
+                            },
+                            child: ListTile(
+                              title: Text('Selected Time: ${selectedTime ?? "None"}',style: TextStyle(color: Colors.white),),
+                              trailing: Icon(Icons.arrow_drop_down,color: labelsColor,),
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    //////////////////////////////////////////////////////**** Time column ****///////////////////////////////////////////////////////////////////////////////////////////////////////
+
               ),
             ),
           ),
@@ -622,15 +532,21 @@ class _MoviesAboutState extends State<MoviesAbout> {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    context.go(HomebytackatPath);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => homebytackat(
+                      cinemaName: widget.cinemaName,
+                      movieDate:selectedDate,
+                      movieTime:selectedTime, name: widget.name,
+                      description:widget.description, bannerurl:widget.bannerurl,
+                      posterurl: widget.posterurl, vote: widget.vote,
+                      launch_on: widget.launch_on, numOfTarings: widget.numOfTarings ,)));
                   },
-                  child: Text(
+                  child: const Text(
                     'Select session',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xffffffff),
+                      color: Color(0xffffffff),
                     ),
                   ),
                 ),

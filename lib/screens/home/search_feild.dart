@@ -58,12 +58,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                   color: Colors.grey,
                 ),
               ),
-              //suffix: IconButton(onPressed: ()=>_searchController.clear(),
-              // icon: const Icon(Icons.clear,color: Colors.grey,)),
-              suffixIcon: const Icon(
-                Icons.interests_outlined,
-                color: Colors.grey,
-              ),
               fillColor: Colors.black38,
               filled: true,
               hintText: "Search for Cinema",

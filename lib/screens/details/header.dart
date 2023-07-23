@@ -13,11 +13,11 @@ class Header extends StatefulWidget {
     required this.posterurl,
     required this.vote,
     required this.launch_on,
-    required this.numOfTarings, required List trending,this.cinemaName,
+    required this.numOfTarings, required List trending,required this.cinemaName, required this.movieDate, required this.movieTime,
   })
       : super(key: key);
   final String name, description, bannerurl, posterurl, vote, launch_on,numOfTarings;
-  final String? cinemaName;
+  final String cinemaName,movieTime,movieDate;
 
   State<Header> createState() => _HeaderState();
 }
@@ -49,7 +49,7 @@ class _HeaderState extends State<Header> {
                   Text(
                     '${widget.cinemaName}',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 15,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -66,11 +66,13 @@ class _HeaderState extends State<Header> {
 
                 ],
               ),
+
+              //احتمال احذفهم او اعدل عليهم بحيث ياخدو بيانات
               IconButton(
                 onPressed: () {
                   // إجراء فتح التقويم
                 },
-                icon: Icon(Icons.calendar_today, color: Colors.white),
+                icon: Icon(Icons.calendar_today, color: Color(0xFF101238)),
               ),
             ],
           ),
@@ -97,9 +99,9 @@ class _HeaderState extends State<Header> {
                           color: Colors.white,
                         ),
                         Text(
-                          currentTime,
+                          widget.movieTime,
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -129,9 +131,9 @@ class _HeaderState extends State<Header> {
                           color: Colors.white,
                         ),
                         Text(
-                          currentDate,
+                          widget.movieDate,
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
