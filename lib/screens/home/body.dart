@@ -109,7 +109,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 22, color: Colors.white),
                     ))),
             MoviePoster(
-              trending: trendingmovies,
+              trending: trendingmovies, cinemaName: 'Grand Cinema City Mall',
             ),
             Container(
                 alignment: Alignment.centerLeft,
@@ -123,7 +123,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 22, color: Colors.white),
                     ))),
             MoviePoster(
-              trending: trendingmovies,
+              trending: trendingmovies, cinemaName: 'Prime Cinema Abdali',
             ),
             Container(
                 alignment: Alignment.centerLeft,
@@ -137,7 +137,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 22, color: Colors.white),
                     ))),
             MoviePoster(
-              trending: trendingmovies,
+              trending: trendingmovies, cinemaName: 'Prime Cinema ALbaraka Mall',
             ),
             Container(
                 alignment: Alignment.centerLeft,
@@ -151,7 +151,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 22, color: Colors.white),
                     ))),
             MoviePoster(
-              trending: trendingmovies,
+              trending: trendingmovies, cinemaName: 'Prime Cinema Irdid',
             ),
             Container(
                 alignment: Alignment.centerLeft,
@@ -165,7 +165,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 22, color: Colors.white),
                     ))),
             MoviePoster(
-              trending: trendingmovies,
+              trending: trendingmovies, cinemaName: 'Mecca Mall Cinema',
             ),
             Container(
                 alignment: Alignment.centerLeft,
@@ -179,7 +179,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 22, color: Colors.white),
                     ))),
             MoviePoster(
-              trending: trendingmovies,
+              trending: trendingmovies, cinemaName: 'Taj Mall Cinema',
             ),
           ],
         ),

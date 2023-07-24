@@ -87,8 +87,8 @@ class Ticket extends StatelessWidget {
                                           child:
                                           Container(
                                             // titlewrap5oV (I12:3515;4:196)
-                                            margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 82.5*fem, 0*fem),
-                                            padding: EdgeInsets.fromLTRB(6*fem, 0*fem, 6*fem, 0*fem),
+                                            margin: EdgeInsets.fromLTRB(0*fem, 2*fem, 86*fem, 0*fem),
+                                            padding: EdgeInsets.fromLTRB(0, 0*fem, 40*fem, 0*fem),
                                             //height: 40*fem,
                                             child: Text(
                                               'Your ticket',

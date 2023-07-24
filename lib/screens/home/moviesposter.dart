@@ -1,7 +1,10 @@
+import 'package:cenimabooking/screens/details/movie-about.dart';
 import 'package:flutter/material.dart';
+
 class MoviePoster extends StatelessWidget {
   final List trending;
-  const MoviePoster({Key? key, required this.trending}) : super(key: key);
+  final String cinemaName;
+  const MoviePoster({Key? key, required this.trending, required this.cinemaName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class MoviePoster extends StatelessWidget {
                   itemCount: trending.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                     /* onTap: () {
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -37,9 +40,9 @@ class MoviePoster extends StatelessWidget {
                                   launch_on: trending[index]
                                   ['release_date'],
                                    numOfTarings:trending[index]['vote_count'].toString(),
-                                  key: key,
+                                  key: key, cinemaName: cinemaName,
                                 )));
-                      },*/
+                      },
                       child: Container(
                         margin: const EdgeInsets.all(7),
                         width: 170,
