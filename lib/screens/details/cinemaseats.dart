@@ -32,21 +32,28 @@ class CustomSeatButton extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'Buy $selectedTickets ticket${selectedTickets > 1 ? 's' : ''}',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 19,
+          Center(
+            child: Center(
+              child: Text(
+                'Buy $selectedTickets ticket${selectedTickets > 1 ? 's' : ''}',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 19,
+                ),
+              ),
             ),
           ),
           SizedBox(height: 4),
-          Text(
-            'JOD $totalPrice',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25,
+          Center(
+            child: Text(
+              'JOD $totalPrice',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+              ),
             ),
           ),
         ],

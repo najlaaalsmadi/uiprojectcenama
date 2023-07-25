@@ -1,8 +1,7 @@
 import 'package:cenimabooking/screens/pay/ticket.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
 
-// ignore: must_be_immutable
 class PaymentForm extends StatefulWidget {
   PaymentForm({
     required this.totalPrice,
@@ -10,7 +9,8 @@ class PaymentForm extends StatefulWidget {
     required this.seatLocations,
     required this.cinemaName,
     this.movieName,
-    this.movieTime,this.movieDate,
+    this.movieTime,
+    this.movieDate,
     Key? key,
   }) : super(key: key);
 
@@ -19,8 +19,7 @@ class PaymentForm extends StatefulWidget {
   final List<String> seatLocations;
   final String cinemaName;
   final String? movieName;
-  final String? movieTime,movieDate;
-
+  final String? movieTime, movieDate;
 
   @override
   State<PaymentForm> createState() => _PaymentFormState();
@@ -32,6 +31,11 @@ class _PaymentFormState extends State<PaymentForm> {
   String visaCardNumber = '';
   String visaExpiryDate = '';
   String cvcCode = '';
+
+  // Add variables for Mastercard details
+  String mastercardCardNumber = '';
+  String mastercardExpiryDate = '';
+  String mastercardCvcCode = '';
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +116,24 @@ class _PaymentFormState extends State<PaymentForm> {
           RadioListTile(
             activeColor: Colors.deepOrange,
             title: Text(
+              'Mastercard',
+              style: TextStyle(color: Colors.white),
+            ),
+            value: 1,
+            groupValue: selectedRadioValue,
+            onChanged: (newValue) {
+              setState(() {
+                selectedRadioValue = newValue!;
+                showVisaDetails = true;
+              });
+            },
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          RadioListTile(
+            activeColor: Colors.deepOrange,
+            title: Text(
               'Cash',
               style: TextStyle(color: Colors.white),
             ),
@@ -167,6 +189,22 @@ class _PaymentFormState extends State<PaymentForm> {
           style: TextStyle(fontSize: 18),
         ),
       );
+    } else if (selectedRadioValue == 1 && showVisaDetails) {
+      // If Mastercard is selected and Mastercard details are shown, return the Mastercard payment button.
+      return ElevatedButton(
+        onPressed: () {
+          _onPayButtonPressed();
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.deepOrange,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          minimumSize: Size(double.infinity, 0),
+        ),
+        child: Text(
+          'Pay • ${widget.totalPrice}',
+          style: TextStyle(fontSize: 18),
+        ),
+      );
     } else if (selectedRadioValue == 3) {
       // If Cash is selected, return the Cash payment button.
       return ElevatedButton(
@@ -191,8 +229,7 @@ class _PaymentFormState extends State<PaymentForm> {
 
   void _onPayButtonPressed() {
     if (selectedRadioValue == 2 && showVisaDetails && visaCardNumber.isNotEmpty && visaExpiryDate.isNotEmpty && cvcCode.isNotEmpty) {
-      // If Visa is selected and Visa details are shown and card number, expiry date, and CVC code are provided,
-      // go to the TicketScreen.
+      // If Visa is selected and Visa details are provided, go to the TicketScreen.
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -203,20 +240,39 @@ class _PaymentFormState extends State<PaymentForm> {
             cinemaName: widget.cinemaName,
             movieName: widget.movieName,
             movieTime: widget.movieTime,
-            movieDate:widget.movieDate,
+            movieDate: widget.movieDate,
             visaCardNumber: visaCardNumber, // Use the entered Visa card number.
             visaExpiryDate: visaExpiryDate, // Use the entered expiry date.
             // Use the entered CVC code.
           ),
         ),
       );
+    } else if (selectedRadioValue == 1 && showVisaDetails && mastercardCardNumber.isNotEmpty && mastercardExpiryDate.isNotEmpty && mastercardCvcCode.isNotEmpty) {
+      // If Mastercard is selected and Mastercard details are provided, go to the TicketScreen.
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Ticket(
+            totalPrice: widget.totalPrice,
+            seatNumbers: widget.seatNumbers,
+            seatLocations: widget.seatLocations,
+            cinemaName: widget.cinemaName,
+            movieName: widget.movieName,
+            movieTime: widget.movieTime,
+            movieDate: widget.movieDate,
+            visaCardNumber: mastercardCardNumber, // Use the entered Mastercard number.
+            visaExpiryDate: mastercardExpiryDate, // Use the entered expiry date.
+            // Use the entered CVC code.
+          ),
+        ),
+      );
     } else {
-      // For other payment methods (e.g., Cash) or if Visa details are incomplete, show an alert dialog.
+      // For other payment methods or if card details are incomplete, show an alert dialog.
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Payment Error'),
-          content: Text('Please enter valid Visa card details.'),
+          content: Text('Please enter valid card details.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -245,7 +301,7 @@ class _PaymentFormState extends State<PaymentForm> {
           cinemaName: widget.cinemaName,
           movieName: widget.movieName,
           movieTime: widget.movieTime,
-          movieDate:widget.movieDate,
+          movieDate: widget.movieDate,
           visaCardNumber: visaCardNumber, // Since it's Cash payment, we leave the Visa card number empty.
           visaExpiryDate: visaExpiryDate, // Since it's Cash payment, we leave the expiry date empty.
           // Since it's Cash payment, we leave the CVC code empty.
@@ -267,18 +323,23 @@ class _PaymentFormState extends State<PaymentForm> {
       ),
       child: Column(
         children: [
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               decoration: InputDecoration(
-                labelText: 'Card Number',
+                labelText: 'card Number',
                 labelStyle: TextStyle(color: Colors.white),
               ),
               style: TextStyle(color: Colors.white),
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                _CardNumberFormatter(),
+              ],
               onChanged: (value) {
                 setState(() {
-                  visaCardNumber = value;
+                  mastercardCardNumber = value;
                 });
               },
             ),
@@ -287,14 +348,18 @@ class _PaymentFormState extends State<PaymentForm> {
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               decoration: InputDecoration(
-                labelText: 'Expiry Date',
+                labelText: 'Expiry Date (MM/YY)',
                 labelStyle: TextStyle(color: Colors.white),
               ),
               style: TextStyle(color: Colors.white),
               keyboardType: TextInputType.datetime,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                _MastercardExpiryDateFormatter(),
+              ],
               onChanged: (value) {
                 setState(() {
-                  visaExpiryDate = value;
+                  mastercardExpiryDate = value;
                 });
               },
             ),
@@ -308,9 +373,10 @@ class _PaymentFormState extends State<PaymentForm> {
               ),
               style: TextStyle(color: Colors.white),
               keyboardType: TextInputType.number,
+              maxLength: 3, // Set max length to 4 digits for CVC.
               onChanged: (value) {
                 setState(() {
-                  cvcCode = value;
+                  mastercardCvcCode = value;
                 });
               },
             ),
@@ -319,4 +385,77 @@ class _PaymentFormState extends State<PaymentForm> {
       ),
     );
   }
+}
+
+class _CardNumberFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    const int maxLength = 16;
+
+    String text = newValue.text;
+    String filteredText = text.replaceAll(RegExp(r'\D'), ''); // Remove non-digits
+
+    if (filteredText.length > maxLength) {
+      filteredText = filteredText.substring(0, maxLength);
+    }
+
+    List<String> segments = [];
+    for (int i = 0; i < filteredText.length; i += 4) {
+      int end = i + 4;
+      if (end > filteredText.length) {
+        end = filteredText.length;
+      }
+      segments.add(filteredText.substring(i, end));
+    }
+
+    String formattedText = segments.join(' ');
+
+    return newValue.copyWith(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+}
+
+class _MastercardExpiryDateFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    const int maxLength = 4;
+
+    String text = newValue.text;
+    String filteredText = text.replaceAll(RegExp(r'\D'), ''); // Remove non-digits
+
+    if (filteredText.length > maxLength) {
+      filteredText = filteredText.substring(0, maxLength);
+    }
+
+    if (filteredText.isEmpty) {
+      return newValue;
+    }
+
+    String formattedText = filteredText.substring(0, 2) + '/' + filteredText.substring(2);
+
+    return newValue.copyWith(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+}
+
+String formatMastercardExpiryDate(String input) {
+  if (input.length > 4) {
+    input = input.substring(0, 4);
+  }
+
+  String filteredText = input.replaceAll(RegExp(r'\D'), ''); // Remove non-digits
+
+  if (filteredText.length > 4) {
+    filteredText = filteredText.substring(0, 4);
+  }
+
+  if (filteredText.isEmpty) {
+    return '';
+  }
+
+  return filteredText.substring(0, 2) + '/' + filteredText.substring(2);
 }

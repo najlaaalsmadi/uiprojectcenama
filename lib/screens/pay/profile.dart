@@ -345,7 +345,7 @@ class Profile extends StatelessWidget {
                                             ),
                                             Text(
                                               // dateMX5 (I21:2631;21:2542)
-                                              '$movieDate $movieTime',
+                                              '$movieDate , $movieTime',
                                               style: TextStyle (
 
                                                 fontSize: 21*ffem,

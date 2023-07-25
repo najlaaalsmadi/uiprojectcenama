@@ -219,7 +219,7 @@ class _PayState extends State<Pay> {
                                                         ),
                                                         Text(
                                                           // here put the date and the time for film from page cinema or film details
-                                                          '${widget.movieDate} ${widget.movieTime}',
+                                                          '${widget.movieDate}, ${widget.movieTime}',
                                                           style: TextStyle (
 
                                                             fontSize: 18*ffem,

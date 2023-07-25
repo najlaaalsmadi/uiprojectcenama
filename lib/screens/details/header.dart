@@ -1,7 +1,7 @@
 import 'package:cenimabooking/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+
 
 class Header extends StatefulWidget {
   @override
@@ -25,9 +25,6 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
-    String currentTime =
-        DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
-    String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
 
     return Container(
       height: 120,
@@ -101,7 +98,7 @@ class _HeaderState extends State<Header> {
                         Text(
                           widget.movieTime,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
