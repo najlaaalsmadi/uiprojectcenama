@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cenimabooking/screens/details/homebytackat.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class MoviesAbout extends StatefulWidget {
   const MoviesAbout({
@@ -14,7 +15,14 @@ class MoviesAbout extends StatefulWidget {
     required this.cinemaName,
   }) : super(key: key);
 
-  final String name, description, bannerurl, posterurl, vote, launch_on, numOfTarings, cinemaName;
+  final String name,
+      description,
+      bannerurl,
+      posterurl,
+      vote,
+      launch_on,
+      numOfTarings,
+      cinemaName;
 
   @override
   State<MoviesAbout> createState() => _MoviesAboutState();
@@ -73,8 +81,10 @@ class _MoviesAboutState extends State<MoviesAbout> {
               selectedItemColor: const Color(0xffff7f36),
               unselectedItemColor: labelsColor,
               backgroundColor: seconderyColor.withOpacity(1),
-              selectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-              unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              selectedLabelStyle:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              unselectedLabelStyle:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               onTap: (index) {
                 setState(() {
                   pageIndex = index;
@@ -84,15 +94,55 @@ class _MoviesAboutState extends State<MoviesAbout> {
               elevation: 0,
               type: BottomNavigationBarType.fixed,
               items: const [
-                BottomNavigationBarItem(icon: SizedBox(width: 0, height: 0), label: "About"),
-                BottomNavigationBarItem(icon: SizedBox(width: 0, height: 0), label: "Sessions")
+                BottomNavigationBarItem(
+                    icon: SizedBox(width: 0, height: 0), label: "About"),
+                BottomNavigationBarItem(
+                    icon: SizedBox(width: 0, height: 0), label: "Sessions")
               ],
             ),
             Container(
               color: Colors.black,
               width: double.maxFinite,
               height: 615 * fem,
-              child: pageIndex == 0 ? openAbout() : openSessions(),
+              child: pageIndex == 0
+                  ? openAbout()
+                  : FirebaseAuth.instance.currentUser != null
+                      ? openSessions()
+                      : Stack(
+                          children: [
+                            openSessions(),
+                            Container(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height,
+                              color: Colors.black54,
+                              child: Center(
+                                child: AlertDialog(
+                                  backgroundColor: labelsColor,
+                                  title: Text("Attention"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("You have to sign in for bookings"),
+                                      SizedBox(
+                                          height:
+                                              16), // Add some space between the text and the button
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          print("Go to sign in");
+                                          Navigator.pop(
+                                              context); // Close the popup when the button is pressed
+                                        },
+                                        child: Text("Go to sign in"),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
             )
           ],
         ),
@@ -136,7 +186,10 @@ class _MoviesAboutState extends State<MoviesAbout> {
                     const Text(
                       'Rating',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Color(0xff637393)),
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff637393)),
                     ),
                   ],
                 ),
@@ -217,7 +270,8 @@ class _MoviesAboutState extends State<MoviesAbout> {
                               width: 38 * fem,
                               height: double.infinity,
                               decoration: BoxDecoration(
-                                border: Border.all(color: const Color(0x196d9eff)),
+                                border:
+                                    Border.all(color: const Color(0x196d9eff)),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: const Center(
@@ -369,11 +423,10 @@ class _MoviesAboutState extends State<MoviesAbout> {
                     ),
                     SizedBox(height: 16 * fem),
                     Container(
-                      margin: EdgeInsets.fromLTRB(0 * fem, 20 * fem, 0 * fem, 4 * fem),
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 20 * fem, 0 * fem, 4 * fem),
                       width: 200 * fem,
-
                       child: ListTile(
-
                         title: Text(
                           'Selected date:\n ${selectedDate ?? "None"}',
                           style: TextStyle(color: Colors.white),
@@ -385,11 +438,11 @@ class _MoviesAboutState extends State<MoviesAbout> {
                         onTap: () {
                           showDatePopup(context, times);
                         },
-
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(0 * fem, 20 * fem, 0 * fem, 4 * fem),
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 20 * fem, 0 * fem, 4 * fem),
                       width: 200 * fem,
                       child: ListTile(
                         title: Text(
@@ -451,7 +504,8 @@ class _MoviesAboutState extends State<MoviesAbout> {
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.orange,
-                          padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 32 * fem),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16 * fem, horizontal: 32 * fem),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8 * fem),
                           ),
@@ -469,7 +523,6 @@ class _MoviesAboutState extends State<MoviesAbout> {
                     ),
 
 // ... Rest of the code ...
-
                   ],
                 ),
               ),
@@ -483,11 +536,14 @@ class _MoviesAboutState extends State<MoviesAbout> {
 // Helper functions to show date and time popup menus
   void showDatePopup(BuildContext context, List<String> times) {
     final RenderBox button = context.findRenderObject() as RenderBox;
-    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
+    final RenderBox overlay =
+        Overlay.of(context)!.context.findRenderObject() as RenderBox;
     final RelativeRect position = RelativeRect.fromRect(
       Rect.fromPoints(
-        button.localToGlobal(button.size.bottomLeft(Offset.zero), ancestor: overlay),
-        button.localToGlobal(button.size.bottomRight(Offset.zero), ancestor: overlay),
+        button.localToGlobal(button.size.bottomLeft(Offset.zero),
+            ancestor: overlay),
+        button.localToGlobal(button.size.bottomRight(Offset.zero),
+            ancestor: overlay),
       ),
       Offset.zero & overlay.size,
     );
@@ -513,11 +569,14 @@ class _MoviesAboutState extends State<MoviesAbout> {
   void showTimePopup(BuildContext context) {
     List<String> grandcinema = ["3:00 PM", "6:00 PM", "8:00 PM"];
     final RenderBox button = context.findRenderObject() as RenderBox;
-    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
+    final RenderBox overlay =
+        Overlay.of(context)!.context.findRenderObject() as RenderBox;
     final RelativeRect position = RelativeRect.fromRect(
       Rect.fromPoints(
-        button.localToGlobal(button.size.bottomLeft(Offset.zero), ancestor: overlay),
-        button.localToGlobal(button.size.bottomRight(Offset.zero), ancestor: overlay),
+        button.localToGlobal(button.size.bottomLeft(Offset.zero),
+            ancestor: overlay),
+        button.localToGlobal(button.size.bottomRight(Offset.zero),
+            ancestor: overlay),
       ),
       Offset.zero & overlay.size,
     );

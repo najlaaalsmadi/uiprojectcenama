@@ -1,311 +1,307 @@
-
 import 'package:cenimabooking/screens/pay/profile.dart';
-import 'package:cenimabooking/screens/pay/ticket.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
-import 'package:intl/intl.dart';
+import '../../constants.dart';
 
-// ignore: must_be_immutable
-class Profile_Empty extends StatelessWidget {
-  // final int selectedTickets;
-  final int totalPrice;
-  final List<String> seatNumbers;
-  final List<String> seatLocations;
-  final String? cinemaName;
-  final String? movieName;
-  final String? movieTime;
-  final String visaCardNumber;
-  final String visaExpiryDate;
-  String currentTime =
-  DateFormat('hh:mm a').format(DateTime(2023, 7, 5, 10, 30));
-  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime(2023, 7, 5));
+class UserProfile extends StatefulWidget {
+  int totalPrice;
+  String Cinema;
+  String Movie;
+  String movieDate;
+  String movieTime;
 
-  //var selectedSeats;
-
-  Profile_Empty({
-    // required this.selectedTickets,
+  UserProfile({
+    required this.Movie,
+    required this.Cinema,
+    required this.movieTime,
     required this.totalPrice,
-    required this.seatNumbers,
-    required this.seatLocations,
-    this.cinemaName,
-    this.movieName,
-    this.movieTime,
-    required this.visaCardNumber,
-    required this.visaExpiryDate,
+    required this.movieDate,
+  });
+
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  late String cinema;
+  late String movie;
+  late String seats;
+  late String price;
+  late String visa;
+
+  DatabaseReference? dbRef;
+
+  void getReservedSeats() {
+    try {
+      String currentUserUid = FirebaseAuth.instance.currentUser!.uid.toString();
+      dbRef!
+          .orderByChild('userId')
+          .equalTo(currentUserUid)
+          .get()
+          .then((DataSnapshot snapshot) {
+        Map<dynamic, dynamic>? reservations =
+            snapshot.value as Map<dynamic, dynamic>?;
+
+        if (reservations != null) {
+          reservations.forEach((key, value) {
+            cinema = value['cenima'];
+            movie = value['movie'];
+            seats = value['seats'];
+            price = value['price'];
+            visa = value['visa'];
+          });
+        } else {
+          // Handle the case where no reservations are found for the current user.
+        }
+      });
+      print(movie);
+      print(cinema);
+      print('inside profile');
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dbRef = FirebaseDatabase.instance.ref().child('Seat');
+    getReservedSeats();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('Seat');
+    return Scaffold(
+      backgroundColor: mainColor,
+      appBar: AppBar(
+        backgroundColor: seconderyColor,
+        title: Text('User Profile'),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
+          //This gives the page the background color
+          background(),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ProfileBox(),
+                  shortcuts('Payment History', Icons.payment, context),
+                  //paymentHistoryCard(context),
+                  Divider(color: mainColor, endIndent: 50, indent: 50),
+                  shortcuts('Complaints', Icons.error, context),
+                  Divider(color: mainColor, endIndent: 50, indent: 50),
+                  shortcuts('Logout', Icons.logout, context),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Card paymentHistoryCard(BuildContext context) {
+    return Card(
+      color: mainColor,
+      margin: EdgeInsets.all(5),
+      child: Container(
+        height: MediaQuery.of(context).size.width * 0.2,
+        width: MediaQuery.of(context).size.width * 0.8,
+        padding: EdgeInsets.all(7),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Text(widget.Cinema,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.labelLarge),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Text(widget.Movie,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.labelLarge),
+                ),
+              ],
+            ),
+            Text(
+                widget.movieTime == null ? 'date' : widget.movieTime.toString(),
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge), // Fix moovie time type
+            Text('Payed via Visa: ' + widget.totalPrice.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge!
+                    .copyWith(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding shortcuts(String label, IconData icon, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, left: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () async {
+              if (label == 'Logout') {
+                await FirebaseAuth.instance.signOut();
+              }
+              if (label == 'Complaints') {
+                dialog(context);
+              }
+              if (label == 'Payment History') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Profile(
+                      totalPrice: widget.totalPrice,
+                      cinemaName: widget.Cinema,
+                      movieName: widget.Movie,
+                      movieTime: widget.movieTime,
+                      movieDate: widget.movieDate,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: CircleAvatar(
+              child: Icon(icon),
+              backgroundColor: mainColor,
+            ),
+          ),
+          SizedBox(
+            width: 30,
+          ),
+          Text(label),
+        ],
+      ),
+    );
+  }
+
+  Widget dialog(BuildContext context) {
+    return TextButton(
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: const Text('AlertDialog description'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      ),
+      child: const Text('Show Dialog'),
+    );
+  }
+
+  Container background() {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            mainColor,
+            labelsColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [
+            0.33,
+            0.33
+          ], // Adjust the stop values to determine the portion of blue color
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileBox extends StatelessWidget {
+  const ProfileBox({
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 375;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.70;
-    return Scaffold(
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Container(
-            // profileemptyF3M (21:2637)
-            padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 170*fem),
-            width: double.infinity,
-            decoration: BoxDecoration (
-              color: Color(0xff1a2232),
+    return Center(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: 250,
+        decoration: BoxDecoration(
+          color: mainColor,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 8.0,
+              offset: Offset(0, 8),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  // fixedYYF (21:2646)
-                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 16*fem),
-                  padding: EdgeInsets.fromLTRB(0*fem, 17.17*fem, 0*fem, 0*fem),
-                  width: double.infinity,
-                  decoration: BoxDecoration (
-                    color: Color(0xb21e283d),
-                  ),
-                  child: ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur (
-                        sigmaX: 20*fem,
-                        sigmaY: 20*fem,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            // statusbar1gj (21:2647)
-                            margin: EdgeInsets.fromLTRB(33.27*fem, 0*fem, 14.34*fem, 15.33*fem),
-                            width: double.infinity,
-                            child:
-
-                            Container(
-                              // topbarboM (21:2648)
-                              padding: EdgeInsets.fromLTRB(16*fem, 12*fem, 16*fem, 1*fem),
-                              width: double.infinity,
-
-                              child: ClipRect(
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur (
-                                    sigmaX: 20*fem,
-                                    sigmaY: 20*fem,
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        // glyph6EK (I21:2648;1:704)
-                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 11*fem),
-                                        child: TextButton(
-                                          onPressed: () {
-                                            // انتقل إلى صفحة الملف الشخصي (PROFILE)
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => Ticket(
-                                                  totalPrice: totalPrice,
-                                                  seatNumbers:seatNumbers,
-                                                  seatLocations: seatLocations,
-                                                  cinemaName: "Cinema Name",
-                                                  movieName: "Movie Name",
-                                                  movieTime: "", visaCardNumber: visaCardNumber, visaExpiryDate: visaExpiryDate,),
-                                              ),
-                                            );
-                                          },
-                                          style: TextButton.styleFrom (
-                                            padding: EdgeInsets.zero,
-                                          ),
-                                          child: Container(
-                                            width: 40*fem,
-                                            height: 40*fem,
-                                            child: Image.asset(
-                                              'assets/images/glyph-E4P.png',
-                                              width: 40*fem,
-                                              height: 40*fem,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 30.5*fem,
-                                      ),
-
-                                      Container(
-                                        // titlewrapPjD (I21:2648;1:703)
-                                        margin: EdgeInsets.fromLTRB(0*fem, 11*fem, 0*fem, 0*fem),
-                                        height: 40*fem,
-                                        child: Text(
-                                          '8 (707) 268 48 12',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 18*ffem,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1*ffem/fem,
-                                            color: Color(0xffffffff),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 30.5*fem,
-                                      ),
-                                      Container(
-                                        // glyphEzj (I21:2648;1:709)
-                                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 11*fem),
-                                        child: TextButton(
-                                          onPressed: () {},
-                                          style: TextButton.styleFrom (
-                                            padding: EdgeInsets.zero,
-                                          ),
-                                          child: Container(
-                                            width: 40*fem,
-                                            height: 40*fem,
-                                            child: Image.asset(
-                                              'assets/images/glyph-Le3.png',
-                                              width: 40*fem,
-                                              height: 20*fem,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  // contentxfq (21:2638)
-                  margin: EdgeInsets.fromLTRB(16*fem, 0*fem, 16*fem, 0*fem),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        // sectionHy1 (21:2639)
-                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 24*fem),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              // savedcardsoRZ (21:2640)
-                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 10*fem),
-                              child: Text(
-                                'Saved cards',
-                                style: TextStyle (
-
-                                  fontSize: 16*ffem,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.2575*ffem/fem,
-                                  color: Color(0xff637393),
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              // buttoniHd (21:2642)
-                              onPressed: () {
-                                // انتقل إلى صفحة الملف الشخصي (PROFILE)
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Profile(
-                                      totalPrice: totalPrice,
-                                      cinemaName: "Cinema Name",
-                                      movieName: "Movie Name",
-                                      movieTime: "",),
-                                  ),
-                                );
-                              },
-                              style: TextButton.styleFrom (
-                                padding: EdgeInsets.zero,
-                              ),
-                              child: Container(
-                                width: double.infinity,
-                                height: 40*fem,
-                                decoration: BoxDecoration (
-                                  border: Border.all(color: Color(0x196d9eff)),
-                                  borderRadius: BorderRadius.circular(8*fem),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Add new card',
-                                    style: TextStyle (
-
-                                      fontSize: 14*ffem,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1.2575*ffem/fem,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        // sectionN7H (21:2643)
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              // PaymentshistoryhfM (21:2644)
-                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 244*fem),
-                              child: Text(
-                                'Payments history',
-                                style: TextStyle (
-
-                                  fontSize: 16*ffem,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.2575*ffem/fem,
-                                  color: Color(0xff637393),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              // placeholderdZ1 (21:2701)
-                              margin: EdgeInsets.fromLTRB(83.5*fem, 0*fem, 0*fem, 0*fem),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    // illustrationNmV (21:2686)
-                                    margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 12*fem),
-                                    width: 40.22*fem,
-                                    height: 48*fem,
-                                    child: Image.asset(
-                                      'assets/images/illustration.png',
-                                      width: 40.22*fem,
-                                      height: 48*fem,
-                                    ),
-                                  ),
-                                  Text(
-                                    // youhaventboughtticketsyetV5R (21:2700)
-                                    'You haven\'t bought tickets yet',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle (
-
-                                      fontSize: 14*ffem,
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.2857142857*ffem/fem,
-                                      color: Color(0xff637393),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+          ],
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8, right: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add_a_photo_outlined,
+                        color: Colors.white,
+                      ))
+                ],
+              ),
             ),
-          ),
-        )
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    child: Image.asset('assets/images/johnWick.jpg'),
+                  ),
+                  Text(
+                    FirebaseAuth.instance == null
+                        ? 'User Name'
+                        : FirebaseAuth.instance.currentUser!.email.toString(),
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

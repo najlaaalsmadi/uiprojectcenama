@@ -1,3 +1,4 @@
+import 'package:cenimabooking/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,8 @@ class CircleAvatarButton extends StatelessWidget {
   final Color backgroundColor;
   final String symbol;
 
-  const CircleAvatarButton({super.key,
+  const CircleAvatarButton({
+    super.key,
     required this.value,
     required this.label,
     required this.backgroundColor,
@@ -29,7 +31,8 @@ class CircleAvatarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSelected = Provider.of<SeatAvailabilityModel>(context).selectedOption == value;
+    final isSelected =
+        Provider.of<SeatAvailabilityModel>(context).selectedOption == value;
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -75,7 +78,7 @@ class CircleAvatarButtonsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFF101238),
+      color: labelsColor,
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -109,4 +112,3 @@ class CircleAvatarButtonsRow extends StatelessWidget {
     );
   }
 }
-
